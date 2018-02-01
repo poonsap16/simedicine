@@ -37,6 +37,32 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+
+        $this->api = new \App\APIs\WajaUserProvider();
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(\Illuminate\Http\Request $request)
+    {
+        // return env('waja_host');
+        
+        // return ['field' => 'password', 'value' => $request->input('password')];
+        return $this->api->checkField(['field' => 'password', 'value' => $request->input('password')]);
+        return redirect()->back()->withInput()->withErrors('duplicate');
+
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 
     /**
