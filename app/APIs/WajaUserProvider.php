@@ -30,4 +30,15 @@ class WajaUserProvider
 
         return ['text' => 'request failed'];
     }
+
+    public function register(Array $data)
+    {
+        $response = $this->api->post('/register', ['form_params' => $data]);
+
+        if ( $response->getStatusCode() == 200 ) {
+            return json_decode($response->getBody(), true);
+        }
+
+        return false;
+    }
 }

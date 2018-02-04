@@ -12,11 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('register');
 });
 
-Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
-Route::post('/register', 'Auth\RegisterController@register');
+Route::get('/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm']);
+Route::post('/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@register']);
 
 
 Route::post('/query-sap-id','UserController@querySapId');

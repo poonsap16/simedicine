@@ -52,17 +52,32 @@ class RegisterController extends Controller
         // return env('waja_host');
         
         // return ['field' => 'password', 'value' => $request->input('password')];
-        return $this->api->checkField(['field' => 'password', 'value' => $request->input('password')]);
-        return redirect()->back()->withInput()->withErrors('duplicate');
+        // return $this->api->checkField(['field' => 'password', 'value' => $request->input('password')]);
+        $response = $this->api->register($request->all());
 
-        $this->validator($request->all())->validate();
+        if ( !$response ) {
+            return redirect()->back()->withInput()->with('status', 'Service error please try again later.');
+        }
 
-        event(new Registered($user = $this->create($request->all())));
+        if ( $response['reply_code'] != 0 ) {
+            switch ($response['reply_code']) {
+                case 1:
+                    $text = "<b><i>PASSWORD</i> AND <i>PASSWORD AGAIN</i> NOT MATCH</b>";
+                    break;
+                case 2:
+                    $text = "<b><i>The ID <u>" . $request->input('ref_id') . "</u> is already taken. If you think it was wrong please contact Nalinee. YES, THE NALINEE.</i></b>";
+                    break;
+                case 3:
+                    $text = "<b><i>The ID <u>" . $request->input('ref_id') . "</u> is not invited. If you want to join please contact Nongnapat.</i></b>";
+                    break;
+                default:
+                    $text = "";
+                    break;
+            }
+            return redirect()->back()->withInput()->with('status', $text);
+        }
 
-        $this->guard()->login($user);
-
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        return redirect()->back()->with('line', $response);
     }
 
     /**
