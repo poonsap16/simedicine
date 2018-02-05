@@ -70,8 +70,14 @@ class RegisterController extends Controller
                 case 3:
                     $text = "<b><i>The ID <u>" . $request->input('ref_id') . "</u> is not invited. If you want to join please contact Nongnapat.</i></b>";
                     break;
+                case 4:
+                    $text = "<b>External connection error</b>";
+                    break;
+                case 5:
+                    $text = "<b>Internal service error</b>";
+                    break;
                 default:
-                    $text = "";
+                    $text = "<b>Please try again later</b>";
                     break;
             }
             return redirect()->back()->withInput()->with('status', $text);
