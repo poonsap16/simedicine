@@ -34,7 +34,7 @@ class WajaUserProvider
     public function register(Array $data)
     {
         $response = $this->api->post('/register', ['form_params' => $data]);
-
+        dd($response);
         if ( $response->getStatusCode() == 200 ) {
             return json_decode($response->getBody(), true);
         }
