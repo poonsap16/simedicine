@@ -62,8 +62,8 @@
                                 </div>
                                 <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">  
                                     <div class="form-group">
-                                        <label for="password">PASSWORD AGAIN :</label>
-                                        <input type="password" class="form-control" name="re-password" required >
+                                        <label for="re_password">PASSWORD AGAIN :</label>
+                                        <input type="password" class="form-control" name="re_password" required >
                                     </div>
                                 </div>
 
