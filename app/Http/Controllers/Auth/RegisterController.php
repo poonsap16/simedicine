@@ -28,6 +28,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+    protected $wajaApi;
 
     /**
      * Create a new controller instance.
@@ -38,7 +39,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
 
-        $this->api = new \App\APIs\WajaUserProvider();
+        $this->wajaApi = new \App\APIs\WajaUserProvider();
     }
 
     /**
@@ -49,11 +50,7 @@ class RegisterController extends Controller
      */
     public function register(\Illuminate\Http\Request $request)
     {
-        // return env('waja_host');
-        
-        // return ['field' => 'password', 'value' => $request->input('password')];
-        // return $this->api->checkField(['field' => 'password', 'value' => $request->input('password')]);
-        $response = $this->api->register($request->all());
+        $response = $this->wajaApi->register($request->all());
 
         if ( !$response ) {
             return redirect()->back()->withInput()->with('status', 'Service error please try again later.');
@@ -84,6 +81,11 @@ class RegisterController extends Controller
         }
 
         return redirect()->back()->with('line', $response);
+    }
+
+    public function checkLINEVerify(Request $request)
+    {
+        return $this->wajaApi->checkLINEVerify($request->input('username'));
     }
 
     /**

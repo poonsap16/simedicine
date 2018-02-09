@@ -41,7 +41,7 @@ class WajaUserProvider
         return false;
     }
 
-    public function checkLINEVerifyChamp($username)
+    public function checkLINEVerify($username)
     {
         
         $response = $this->api->post('/check-line-verify', [
