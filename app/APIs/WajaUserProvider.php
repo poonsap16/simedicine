@@ -34,11 +34,26 @@ class WajaUserProvider
     public function register(Array $data)
     {
         $response = $this->api->post('/register', ['form_params' => $data]);
-        dd($response);
         if ( $response->getStatusCode() == 200 ) {
             return json_decode($response->getBody(), true);
         }
 
         return false;
+    }
+
+    public function checkLINEVerifyChamp($username)
+    {
+        
+        $response = $this->api->post('/check-line-verify', [
+            'form_params' => [
+                'username' => $username
+            ]
+        ]);
+        
+        if ( $response->getStatusCode() == 200 ) {
+            return json_decode($response->getBody(), true);
+        }
+
+        return false;   
     }
 }
