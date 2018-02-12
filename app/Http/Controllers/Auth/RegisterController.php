@@ -6,7 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Log;
 class RegisterController extends Controller
 {
     /*
@@ -51,7 +51,12 @@ class RegisterController extends Controller
     public function register(\Illuminate\Http\Request $request)
     {
         $response = $this->wajaApi->register($request->all());
-
+        // $response = [
+        //     'reply_code' => 0,
+        //     'username' => 'n.ngnapat',
+        //     'line_qrcode_url' => 'http://cdnqrcgde.s3-eu-west-1.amazonaws.com/wp-content/uploads/2013/11/jpeg.jpg',
+        //     'line_verify_code' => 123456
+        // ];
         if ( !$response ) {
             return redirect()->back()->withInput()->with('status', 'Service error please try again later.');
         }
@@ -83,9 +88,10 @@ class RegisterController extends Controller
         return redirect()->back()->with('line', $response);
     }
 
-    public function checkLINEVerify(Request $request)
+    public function checkLINEVerify(\Illuminate\Http\Request  $request)
     {
-        return $this->wajaApi->checkLINEVerify($request->input('username'));
+        Log::info($request->all());
+        return $this->wajaApi->checkLINEVerify($request->username);
     }
 
     /**

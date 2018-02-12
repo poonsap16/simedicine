@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::get('/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm']);
 Route::post('/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@register']);
 
-Route::post('/check-line-verify', 'Auth\RegisterController@checkLINEVerify');
+Route::post('/check-line-verify', ['as' => 'check-line-verify','uses'=> 'Auth\RegisterController@checkLINEVerify']);
 
 Route::post('/query-sap-id','UserController@querySapId');
 
