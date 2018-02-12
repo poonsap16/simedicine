@@ -90,7 +90,6 @@ class RegisterController extends Controller
 
     public function checkLINEVerify(\Illuminate\Http\Request  $request)
     {
-        Log::info($request->all());
         return $this->wajaApi->checkLINEVerify($request->username);
     }
 

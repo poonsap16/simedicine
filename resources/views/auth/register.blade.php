@@ -121,7 +121,7 @@
                     
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     if (data['reply_code'] == 0){ //จริงต้องเท่ากับ 0
                         $('#verify').hide();
                         $("#myModal").modal()
