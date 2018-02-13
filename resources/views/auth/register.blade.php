@@ -82,7 +82,8 @@
                 </div>  
 	    </div>
 	</div>
-
+    <br>
+    <div align = "center">
     @endif
     {{-- @if( $errors->any() ) --}}
     @if( session('status') )
@@ -91,7 +92,7 @@
     <b><i>The ID <u>{{ old('ref_id') }}</u> is already taken. If you think it was wrong please contact Nalinee. YES, THE NALINEE.</i></b>
      --}}
     @endif
-
+    </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
