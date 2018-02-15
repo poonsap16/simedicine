@@ -33,7 +33,7 @@
                     <h1>Please add IMISU as a friend on LINE application,</h1>
                     <h1>then verify by given 6 digits code below</h1>
                     <img src="{{ session('line')['line_qrcode_url'] }}" alt="">
-                    <h1>Verify code : {{ session('line')['line_verify_code'] }}</h1>
+                    <font color="red"><h1>Verify code : {{ session('line')['line_verify_code'] }}</h1></font>
                     <br/>
                     <h3><i>* This QR-Code is just for you, please DO NOT SHARE it. THANKS.</i></h3>
                     </center>
