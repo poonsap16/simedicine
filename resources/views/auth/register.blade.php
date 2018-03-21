@@ -51,22 +51,52 @@
                             <form action="register" method="POST">
                             {{ csrf_field() }}
 							<div class="modal-body">
+                            <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
+                                    <div id="custom-search-input">
+                                        <div class="input-group col-md-12">
+                                            <input type="number" name = "sap_id" id = "sap_id" class="form-control" placeholder="SAP ID" />
+                                                <span class="input-group-btn">
+                                                <button class="btn btn-info" data-loading-text="<i class='fa fa-spinner fa-spin '></i> กำลังค้นหาข้อมูล" type="button" name = "button" id = "button">
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                </button>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
                                     <div class="form-group">
-                                        <label for="ref_id">SAP ID : </label>
-                                        <input type="number" class="form-control" name="ref_id" required value="{{ old('ref_id') }}">
+                                        <label for="name_thai">ชื่อไทย : </label>
+                                        <input type="text" class="form-control" name="name_thai" id="name_thai" required value="{{ old('name_thai') }}">
+                                    </div>
+                                </div>
+                                <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
+                                    <div class="form-group">
+                                        <label for="name_eng">ชื่ออังกฤษ : </label>
+                                        <input type="text" class="form-control" name="name_eng" id="name_eng" required value="{{ old('name_eng') }}">
+                                    </div>
+                                </div>
+                                <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
+                                    <div class="form-group">
+                                        <label for="email">Email : </label>
+                                        <input type="text" class="form-control" name="email" id="email" required value="{{ old('email') }}">
+                                    </div>
+                                </div>
+                                <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
+                                    <div class="form-group">
+                                        <label for="username">Username : </label>
+                                        <input type="text" class="form-control" name="username" id="username" required value="{{ old('username') }}">
                                     </div>
                                 </div>
                                 <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">  
                                     <div class="form-group">
                                         <label for="password">PASSWORD :</label>
-                                        <input type="password" class="form-control" name="password" required >
+                                        <input type="password" class="form-control" name="password" id ="password" required >
                                     </div>
                                 </div>
                                 <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">  
                                     <div class="form-group">
                                         <label for="re_password">PASSWORD AGAIN :</label>
-                                        <input type="password" class="form-control" name="re_password" required >
+                                        <input type="password" class="form-control" name="re_password" id="re_password"  required  >
                                     </div>
                                 </div>
 
@@ -89,7 +119,7 @@
     @if( session('status') )
     {!! session('status') !!}
     {{-- 
-    <b><i>The ID <u>{{ old('ref_id') }}</u> is already taken. If you think it was wrong please contact Nalinee. YES, THE NALINEE.</i></b>
+    <b><i>The ID <u>{{ old('sap_id') }}</u> is already taken. If you think it was wrong please contact Nalinee. YES, THE NALINEE.</i></b>
      --}}
     @endif
     </div>
@@ -111,6 +141,24 @@
 <script src='/js/new_js/jquery.min.js'></script>
 <script src='/js/new_js/bootstrap.min.js'></script>
 <script>
+    $('#button').click(function(){
+        $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'sap_id': $('#sap_id').val()
+                    
+                },
+                success: function(data) {
+                    $('input[name=name_thai]').val(data.name);    
+                    $('input[name=name_eng]').val(data.name_en);  
+                    $('input[name=email]').val(data.email);                 
+                },
+        error: function(){ },
+        url: '/query-sap-id',
+        cache:false
+        });
+    });
     $('#check-verify').click();
         function myFunction() {
             setInterval(function(){ 
