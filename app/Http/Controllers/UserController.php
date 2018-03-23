@@ -42,6 +42,10 @@ class UserController extends Controller
 
         if ( $response->getStatusCode() == 200 ) {
             $data = json_decode($response->getBody(), true);
+            // if ($data['document_id'] != $request->document_id){
+            //     $data = 0;
+            //     return $data;
+            // }
             return $data;
         }
     }
