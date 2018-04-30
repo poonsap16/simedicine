@@ -14,10 +14,16 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->integer('id')->unsigned();
+            $table->primary('id');
+            $table->string('name'); // encrypted;
+            $table->string('ref_id'); // SAP/STUDENT/USERNAME encrypted
+            $table->string('email'); // encrypted
+            $table->string('full_name', 512); // encrypted
+            $table->string('division_id');
+            $table->boolean('gender');
+            $table->string('pln')->nullable(); // encrypted - professional licence no
+            $table->tinyInteger('role_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

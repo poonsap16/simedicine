@@ -37,7 +37,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
 
         $this->wajaApi = new \App\APIs\WajaUserProvider();
     }
@@ -51,39 +50,38 @@ class RegisterController extends Controller
     public function register(\Illuminate\Http\Request $request)
     {
         // return redirect()->back()->withInput();
-        // $response = $this->wajaApi->register($request->all());
-        // return $response;
+        $response = $this->wajaApi->register($request->all());
         // $response = [
         //     'reply_code' => 0,
         //     'username' => 'n.ngnapat',
         //     'line_qrcode_url' => 'http://cdnqrcgde.s3-eu-west-1.amazonaws.com/wp-content/uploads/2013/11/jpeg.jpg',
         //     'line_verify_code' => 123456
         // ];
-        // if ( !$response ) {
-        //     return redirect()->back()->withInput()->with('status', 'Service error please try again later.');
-        // }
-
-            switch ($request->username) {
-                case 1:
-                    $text = "<b><i>PASSWORD</i> AND <i>PASSWORD AGAIN</i> NOT MATCH</b>";
-                    break;
-                case 2:
-                    $text = "<b><i>The ID <u>" . $request->input('ref_id') . "</u> is already taken. If you think it was wrong please contact Nalinee. YES, THE NALINEE.</i></b>";
-                    break;
-                case 3:
-                    $text = "<b><i>The ID <u>" . $request->input('ref_id') . "</u> is not invited. If you want to join please contact Nongnapat.</i></b>";
-                    break;
-                case 4:
-                    $text = "<b>External connection error</b>";
-                    break;
-                case 5:
-                    $text = "<b>Internal service error</b>";
-                    break;
-                default:
-                    $text = "<b>Please try again later</b>";
-                    break;
-            }
-            return redirect()->back()->withInput()->with('status', $text);
+        if ( !$response ) {
+            return redirect()->back()->withInput()->with('status', 'Service error please try again later.');
+        }
+            
+            // switch ($response['reply_code']) {
+            //     case 1:
+            //         $text = "<b><i>PASSWORD</i> AND <i>PASSWORD AGAIN</i> NOT MATCH</b>";
+            //         break;
+            //     case 2:
+            //         $text = "<b><i>The ID <u>" . $request->input('ref_id') . "</u> is already taken. If you think it was wrong please contact Nalinee. YES, THE NALINEE.</i></b>";
+            //         break;
+            //     case 3:
+            //         $text = "<b><i>The ID <u>" . $request->input('ref_id') . "</u> is not invited. If you want to join please contact Nongnapat.</i></b>";
+            //         break;
+            //     case 4:
+            //         $text = "<b>External connection error</b>";
+            //         break;
+            //     case 5:
+            //         $text = "<b>Internal service error</b>";
+            //         break;
+            //     default:
+            //         $text = "<b>Please try again later</b>";
+            //         break;
+            // }
+            // return redirect()->back()->withInput()->with('status', $text);
 
         return redirect()->back()->with('line', $response);
     }
@@ -121,5 +119,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+    
+    public function validateData (\Illuminate\Http\Request $request){
+        $response = $this->wajaApi->checkField($request->all());
+        return $response;
     }
 }

@@ -4,6 +4,8 @@ namespace App\APIs;
 
 use GuzzleHttp\Client;
 
+use Log;
+
 class WajaUserProvider
 {
     protected $api;
@@ -22,8 +24,7 @@ class WajaUserProvider
 
     public function checkField(Array $data)
     {
-        $response = $this->api->post('/check-register-data', ['form_params' => $data]);
-
+        $response = $this->api->post('/check-register-data', ['form_params' => $data]);;
         if ( $response->getStatusCode() == 200 ) {
             return json_decode($response->getBody(), true);
         }

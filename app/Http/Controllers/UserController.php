@@ -4,8 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
+   
+    public function __construct()
+    {
+        $this->middleware('auth')->except('querySapId');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function querySapId(Request $request){
        
         // return [
@@ -47,6 +58,29 @@ class UserController extends Controller
             //     return $data;
             // }
             return $data;
+        }
+    }
+    public function addUsersForm(){
+        $user =  Auth::user();
+        $role_id = $this->checkRoleId($user['role_id']);
+        if ($role_id != 'admin'){
+            return "ไม่มีสิทธิ์จ้า";
+        }
+        return "ฟอร์มเพิ่ม User";
+    }
+
+    private function checkRoleId($role_id){
+        
+        switch($role_id)
+        {
+            case '0' :
+                return 'admin';
+                break;
+            case '1' :
+                return 'teacher';
+                break;
+            default :
+                return 'not allow';
         }
     }
 }

@@ -21,30 +21,17 @@ Route::post('/register', ['as' => 'register', 'uses' => 'Auth\RegisterController
 Route::post('/check-line-verify', ['as' => 'check-line-verify','uses'=> 'Auth\RegisterController@checkLINEVerify']);
 
 Route::post('/query-sap-id','UserController@querySapId');
+Route::get('/add-users','UserController@addUsersForm');
 
 $router->get('logs', 'SecuredLogViewerController@index');
 
+Route::post('/validate', ['as' => 'register', 'uses' => 'Auth\RegisterController@validateData']);
 
-// test
-Route::get('/test/{sap}', function ($sap) {
-    $client = new  \GuzzleHttp\Client([
-        'base_uri' => env('waja_host'), // base URL
-        'timeout'  => 8.0, // you better set timeout greater than 5 seconds
-    ]);
-    $response = $client->post('/query-sap-id', [
-        'headers' => [
-            'Accept' => 'application/json',
-            'token'  => env('waja_token'), // Your apps token
-            'secret' => env('waja_secret') // Your apps secret
-        ],
-        'form_params' => [
-            'function' => 'querySapId',  // in this example we will call user function
-            'sap_id'   => $sap // use 'org_id' as a key
-        ]
-    ]);
+//Login for admin
+Route::get('/login',['as'=>'login','uses'=>'Auth\LoginController@showLoginForm']);
+Route::post('/login', 'Auth\LoginController@authenticate');
 
-    if ( $response->getStatusCode() == 200 ) {
-        $data = json_decode($response->getBody(), true);
-        return $data;
-    }
+Route::get('/logout', function () {
+    Auth::logout();
+    return view('auth.login');
 });

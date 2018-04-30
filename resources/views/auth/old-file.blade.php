@@ -164,3 +164,36 @@
     </div>
 </script>
 </body>
+
+<!-- <script>
+function textLength(value){
+   var maxLength = 8;
+   if(value.length > maxLength) return false;
+   return true;
+}
+var oldValue = '';
+var alert = document.getElementById('alert');
+document.getElementById('sap_id').onkeyup = function(){
+     if(!textLength(this.value))
+     {
+      this.value.closest('.form-group').removeClass('has-success').addClass('has-error');
+
+      // Stop submission of the form
+      e.preventDefault();
+    } else {
+      // Remove the errors highlight
+      console.log('test');
+    //   this.value.closest('.form-group').removeClass('has-error').addClass('has-success');
+    }
+}
+</script> -->
+<!-- <script>
+$( document ).ready(function() {
+    document.getElementById("name_thai").disabled = true;
+    document.getElementById("name_eng").disabled = true;
+    document.getElementById("email").disabled = true;
+    document.getElementById("username").disabled = true;
+    document.getElementById("password").disabled = true;
+    document.getElementById("re-password").disabled = true;
+});
+</script> -->
