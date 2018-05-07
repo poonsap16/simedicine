@@ -411,29 +411,7 @@ body {
             });
         }
     }
-    function disableButton(){
-        document.getElementById("submit").disabled = true;
-        var ref_id = document.getElementById('ref_id').value;
-        var full_name = document.getElementById('full_name').value;
-        var name_eng = document.getElementById('name_eng').value;
-        var email = document.getElementById('email').value;
-        var name = document.getElementById('name').value;
-        var password = document.getElementById('password').value;
-        var re_password = document.getElementById('re_password').value;
-        var sap_error = document.getElementById('sap_error').innerHTML;
-        var full_name_error = document.getElementById('full_name_error').innerHTML;
-        var name_eng_error = document.getElementById('name_eng_error').innerHTML;
-        var email_error = document.getElementById('email_error').innerHTML;
-        var name_error = document.getElementById('name_error').innerHTML;
-        var password_error = document.getElementById('password_error').innerHTML;
-        var re_password_error = document.getElementById('re_password_error').innerHTML;
-        if( ref_id != '' && full_name  != '' && name_eng  != '' && email  != '' && name  != ''&& name  != ''&& password  != '' && re_password != '' 
-            && sap_error =='' && full_name_error == '' && name_eng_error == '' && email_error == '' && name_error == '' && password_error == '' && re_password_error == '' ){
-                document.getElementById("submit").disabled = false;
-        }else {
-            document.getElementById("submit").disabled = true;
-        }
-    }
+         
 </script>
     </body>
     </html>

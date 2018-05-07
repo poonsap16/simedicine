@@ -66,7 +66,14 @@ class UserController extends Controller
         if ($role_id != 'admin'){
             return "ไม่มีสิทธิ์จ้า";
         }
-        return "ฟอร์มเพิ่ม User";
+        $divisions = \App\Division::all();
+        $registry = null;
+        $statuses[] = ['id' => 0,'name' => 'Administrator'];
+        $statuses[] = ['id' => 1,'name' => 'เจ้าหน้าที่ภาควิชา'];
+        $statuses[] = ['id' => 2,'name' => 'อาจารย์'];
+        $statuses[] = ['id' => 3,'name' => 'แพทย์ประจำบ้าน'];
+        $statuses[] = ['id' => 4,'name' => 'แพทย์ประจำบ้านต่อยอด'];
+        return view('admin.registry',compact('divisions','registry','statuses'));
     }
 
     private function checkRoleId($role_id){

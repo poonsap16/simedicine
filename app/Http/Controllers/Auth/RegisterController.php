@@ -125,4 +125,11 @@ class RegisterController extends Controller
         $response = $this->wajaApi->checkField($request->all());
         return $response;
     }
+
+    public function addUser(\Illuminate\Http\Request $request)
+    {
+        $response = $this->wajaApi->addUser($request->all());
+        return $response;
+    }
+
 }

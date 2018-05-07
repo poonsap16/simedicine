@@ -22,6 +22,7 @@ Route::post('/check-line-verify', ['as' => 'check-line-verify','uses'=> 'Auth\Re
 
 Route::post('/query-sap-id','UserController@querySapId');
 Route::get('/add-users','UserController@addUsersForm');
+Route::post('/add-user', ['as' => 'add-user', 'uses' => 'Auth\RegisterController@addUser']);
 
 $router->get('logs', 'SecuredLogViewerController@index');
 
