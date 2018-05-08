@@ -53,7 +53,7 @@ class LoginController extends Controller
         // // ***
         // Log::info('waja response => ' . json_encode($user));
         // // ***
-        
+        return $user;
         if ( $user['reply_code'] != 0 ) {
             switch ($user['reply_code']) {
                 case 1:

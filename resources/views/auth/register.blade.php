@@ -1,26 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Register</title>
-<link rel="stylesheet" href="/css/bower_components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/new_css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/css/new_css/style.css">
-<link rel="stylesheet" href="/css/bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
-<link rel="stylesheet" href="/css/new_css/toastr.css">
-<link rel="stylesheet" href="/css/new_css/bootstrapValidator.min.css">
-<link href="/css/new_css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/css/bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/new_css/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
 body {
-  background: #eee !important;	
+  background-color: #F7F7F7;	
 }
 .wrapper {	
+    background-color: coral;
   margin-top: 50px;
   margin-bottom: 80px;
 }
+hr {
+    border-top: 1px solid #ccc;
+}
+
 .form-signin {
   max-width: 800px;
   padding: 10px 35px 45px;
@@ -45,6 +48,90 @@ body {
 #user_data{
     display: none;
 }
+.w3-btn, .w3-btn:link, .w3-btn:visited {color:#FFFFFF;background-color:#4CAF50}
+}
+
+.alert {
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  display: table;
+  width: 100%;
+}
+
+.alert-white {
+  background-image: linear-gradient(to bottom, #fff, #f9f9f9);
+  border-top-color: #d8d8d8;
+  border-bottom-color: #bdbdbd;
+  border-left-color: #cacaca;
+  border-right-color: #cacaca;
+  color: #404040;
+  padding-left: 61px;
+  position: relative;
+}
+
+.alert-white.rounded {
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.alert-white.rounded .icon {
+  border-radius: 3px 0 0 3px;
+  -webkit-border-radius: 3px 0 0 3px;
+}
+
+.alert-white .icon {
+  text-align: center;
+  width: 45px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #bdbdbd;
+  padding-top: 15px;
+}
+
+
+.alert-white .icon:after {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border: 1px solid #bdbdbd;
+  position: absolute;
+  border-left: 0;
+  border-bottom: 0;
+  top: 50%;
+  right: -6px;
+  margin-top: -3px;
+  background: #fff;
+}
+
+.alert-white .icon i {
+  font-size: 20px;
+  color: #fff;
+  left: 12px;
+  margin-top: -10px;
+  position: absolute;
+  top: 50%;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #98cce6;
+  color: #3a87ad;
+}
+
+.alert-white.alert-info .icon, 
+.alert-white.alert-info .icon:after {
+  border-color: #3a8ace;
+  background: #4d90fd;
+}
 </style>
 </head>
 <body>
@@ -63,80 +150,80 @@ body {
                 </div>
         @else
 <div class="wrapper">
-<form class="form-signin" action="/register" method = "POST" id = "loginForm">       
-    <h2 class="form-signin-heading">Register</h2><hr>
-    <input type="hidden" name ="_token" value = "{{ csrf_token() }}">
-    <input type="hidden" name ="document_id" id = "document_id" value = "">
-    <div class="row">
-        <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
-        <div class="form-group">
-                <label for="ref_id">SAP ID : </label>
-                <input type="number" class="form-control " name="ref_id" id="ref_id" required value="{{ old('ref_id') }}"/>
-                <span class="help-block" id = "sap_error"></span>
+    <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
+        <div class="w3-card-4 w3-white">
+            <div class="w3-container ">
+                <br/><h2>Register</h2><hr>
             </div>
-        </div>
-    </div>
-    <div id = "user_data">
-    <div class="row">
-        <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
-            <div class="form-group">
-                <label for="full_name">Full Name in Thai : </label>
-                <input type="text" class="form-control" name="full_name" id="full_name" required value="{{ old('full_name') }}" oninput="validateNameThai(this);">
-                <span class="help-block" id = "full_name_error"></span>
+            <form class="w3-container" action="/register" method = "POST" id = "loginForm">  
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-10 col-md-10 col-sm-offset-1">
+                        <div class="alert alert-info alert-white rounded" id = "alert">
+                            <div class="icon">
+                                <i class="fa fa-info-circle"></i>
+                            </div>
+                            You need Faculty's account to register and login by ID. <br/>
+                            If you don't have one, you will not be able to login the application.
+                        </div>  
+                    </div>
+                </div>
+                <input type="hidden" name ="_token" value = "{{ csrf_token() }}">
+                <input type="hidden" name ="document_id" id = "document_id" value = "">
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-10 col-md-10 col-sm-offset-1">
+                        <div class="form-group">
+                            <label for="ref_id" class="w3-text-black">SAP ID : </label>
+                            <input type="number" class="form-control w3-input w3-border" name="ref_id" id="ref_id" required value="{{ old('ref_id') }}"/>
+                            <span class="help-block" id = "sap_error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id = "user_data">
+                    <div class="row">
+                        <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
+                            <div class="form-group">
+                                <label for="full_name" class="w3-text-black">Full Name in Thai : </label>
+                                <input type="text" class="form-control w3-input w3-border" name="full_name" id="full_name" required value="{{ old('full_name') }}" oninput="validateNameThai(this);">
+                                <span class="help-block" id = "full_name_error"></span>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
+                        <div class="form-group">
+                            <label for="name_eng" class="w3-text-black">Full Name in English : </label>
+                            <input type="text" class="form-control w3-input w3-border" name="name_eng" id="name_eng" required value="{{ old('name_eng') }}" oninput="validateNameEng(this);" >
+                            <span class="help-block" id = "name_eng_error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
+                        <div class="form-group">
+                            <label for="email" class="w3-text-black">EMAIL : </label>
+                            <input type="text" class="form-control w3-input w3-border" name="email" id="email" required value="{{ old('email') }}" oninput="validateEmail(this);">
+                            <span class="help-block" id = "email_error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
+                        <div class="form-group">
+                            <label for="name" class="w3-text-black">USERNAME : </label>
+                            <input type="text" class="form-control w3-input w3-border" name="name" id="name" required value="{{ old('name') }}" oninput="validatename(this);">
+                            <span class="help-block" id = "name_error"></span>
+                        </div>
+                    </div>
+                </div>
+            <br/>
+                <div class="row" >
+                    <center><button type="submit" name="submit"  id = "submit" class="w3-btn w3-margin-bottom"><i class="fa fa-check"></i> Register</button></center>
+                </div>
             </div>
+            <br/>
+            </form>
         </div>
     </div>
-    <div class="row">
-        <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
-            <div class="form-group">
-                <label for="name_eng">Full Name in English : </label>
-                <input type="text" class="form-control" name="name_eng" id="name_eng" required value="{{ old('name_eng') }}" oninput="validateNameEng(this);" >
-                <span class="help-block" id = "name_eng_error"></span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
-            <div class="form-group">
-                <label for="email">EMAIL : </label>
-                <input type="text" class="form-control" name="email" id="email" required value="{{ old('email') }}" oninput="validateEmail(this);">
-                <span class="help-block" id = "email_error"></span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
-            <div class="form-group">
-                <label for="name">USERNAME : </label>
-                <input type="text" class="form-control" name="name" id="name" required value="{{ old('name') }}" oninput="validatename(this);">
-                <span class="help-block" id = "name_error"></span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
-            <div class="form-group">
-                <label for="password">PASSWORD : </label>
-                <input type="password" class="form-control" name="password" id="password" required value="{{ old('password') }}" oninput="validatePassword(this);"> 
-                <span class="help-block" id = "password_error"></span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="page col-xs-12 col-sm-8 col-md-10 col-sm-offset-1">
-            <div class="form-group">
-                <label for="re_password">PASSWORD AGAIN : </label>
-                <input type="password" class="form-control" name="re_password" id="re_password" required value="{{ old('re_password') }}" oninput="validateRePassword(this);">
-                <span class="help-block" id = "re_password_error"></span>
-            </div>
-        </div>
-    </div>
-        <br/>
-        <div class="row" >
-            <center><button type="submit" name="submit"  id = "submit" class="btn btn-primary btn-icon"><i class="fa fa-check"></i> Register</button></center>
-        </div>
-    </div>
-</form>
 </div>
 <div align = "center">
     @endif
@@ -160,6 +247,28 @@ body {
     <script type="text/javascript">
     $( document ).ready(function() {
         document.getElementById("submit").disabled = true;
+        $("#ref_id").keydown(function (e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+         });
+         $(function(){
+            var ref_id_length = 8;
+            $("#ref_id").keyup(function(){ // เมื่อ textarea id เท่ากับ data  มี event keyup
+                var this_length=ref_id_length-$(this).val().length; // หาจำนวนตัวอักษรที่เหลือ
+                if(this_length<0){
+                    $(this).val($(this).val().substr(0,8)); // แสดงตามจำนวนตัวอักษรที่กำหนด
+                }         
+            });
+         
+        });
     });
         $('#ref_id').on('input', function(e) {
             $('#user_data').slideUp();
@@ -411,7 +520,27 @@ body {
             });
         }
     }
-         
+    function disableButton(){
+       document.getElementById("submit").disabled = true;
+        var ref_id = document.getElementById('ref_id').value;        
+        var full_name = document.getElementById('full_name').value;
+        var name_eng = document.getElementById('name_eng').value;
+        var email = document.getElementById('email').value;
+        var name = document.getElementById('name').value;
+        var sap_error = document.getElementById('sap_error').innerHTML;
+        var full_name_error = document.getElementById('full_name_error').innerHTML;
+        var name_eng_error = document.getElementById('name_eng_error').innerHTML;
+        var email_error = document.getElementById('email_error').innerHTML;      
+        var name_error = document.getElementById('name_error').innerHTML;
+        if( ref_id != '' && full_name  != '' && name_eng  != '' && email  != '' && name  != ''&& name  != ''
+           && sap_error =='' && full_name_error == '' && name_eng_error == '' && email_error == '' && name_error == ''){
+                document.getElementById("submit").disabled = false;
+        }else {
+            document.getElementById("submit").disabled = true;
+                    }
+   }
+
+   $('#alert').addClass('animated bounce');
 </script>
     </body>
     </html>

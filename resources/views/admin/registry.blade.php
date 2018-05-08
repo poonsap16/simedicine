@@ -42,6 +42,7 @@
 #user_data{
     display: none;
 }
+
 </style>
 </head>
 <body>
@@ -276,6 +277,7 @@
             }         
     });
 });
+
     </script>
     </body>
     

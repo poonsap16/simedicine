@@ -1,75 +1,189 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Login</title>
-<link rel="stylesheet" href="/css/bower_components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/new_css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/css/new_css/style.css">
-<link rel="stylesheet" href="/css/bower_components/font-awesome/css/font-awesome.min.css">
+<title>Register</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
-<link rel="stylesheet" href="/css/new_css/toastr.css">
-<link rel="stylesheet" href="/css/new_css/bootstrapValidator.min.css">
-<link href="/css/new_css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/css/bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/new_css/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
 body {
-	background: #eee !important;	
+  background-color: #F7F7F7;	
 }
 .wrapper {	
-	margin-top: 80px;
+    background-color: #F7F7F7;
+  margin-top: 50px;
   margin-bottom: 80px;
 }
+hr {
+    border-top: 1px solid #ccc;
+}
+
 .form-signin {
-  max-width: 380px;
-  padding: 15px 35px 45px;
+  max-width: 800px;
+  padding: 10px 35px 45px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #F7F7F7;
   border: 1px solid rgba(0,0,0,0.1);  
-  .form-signin-heading,
-	.checkbox {
-	  margin-bottom: 30px;
-	}
-	.checkbox {
-	  font-weight: normal;
-	}
-	.form-control {
-	  position: relative;
-	  font-size: 16px;
-	  height: auto;
-	  padding: 10px;
-		}
-	}
-	input[type="text"] {
-	  margin-bottom: -1px;
-	  border-bottom-left-radius: 0;
-	  border-bottom-right-radius: 0;
-	}
-	input[type="password"] {
-	  margin-bottom: 20px;
-	  border-top-left-radius: 0;
-	  border-top-right-radius: 0;
-	}
+}.form-signin-heading,.checkbox {
+    margin-bottom: 30px;
+}
+.checkbox {
+    font-weight: normal;
+}
+.form-control {
+	position: relative;
+	font-size: 15px;
+	height: 40px;
+	padding: 5px;
+}
+.fa.form-control-feedback {
+    line-height: 40px;
+}
+#user_data{
+    display: none;
+}
+.w3-btn, .w3-btn:link, .w3-btn:visited {color:#FFFFFF;background-color:#4CAF50}
+}
+
+.alert {
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  display: table;
+  width: 100%;
+}
+
+.alert-white {
+  background-image: linear-gradient(to bottom, #fff, #f9f9f9);
+  border-top-color: #d8d8d8;
+  border-bottom-color: #bdbdbd;
+  border-left-color: #cacaca;
+  border-right-color: #cacaca;
+  color: #404040;
+  padding-left: 61px;
+  position: relative;
+}
+
+.alert-white.rounded {
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.alert-white.rounded .icon {
+  border-radius: 3px 0 0 3px;
+  -webkit-border-radius: 3px 0 0 3px;
+}
+
+.alert-white .icon {
+  text-align: center;
+  width: 45px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #bdbdbd;
+  padding-top: 15px;
+}
+
+
+.alert-white .icon:after {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border: 1px solid #bdbdbd;
+  position: absolute;
+  border-left: 0;
+  border-bottom: 0;
+  top: 50%;
+  right: -6px;
+  margin-top: -3px;
+  background: #fff;
+}
+
+.alert-white .icon i {
+  font-size: 20px;
+  color: #fff;
+  left: 12px;
+  margin-top: -10px;
+  position: absolute;
+  top: 50%;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #98cce6;
+  color: #3a87ad;
+}
+
+.alert-white.alert-info .icon, 
+.alert-white.alert-info .icon:after {
+  border-color: #3a8ace;
+  background: #4d90fd;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
 }
 </style>
-</head> 
-
+</head>
 <body>
 <div class="wrapper">
-<form class="form-signin" action="/login" method = "POST" id = "loginForm">       
-  <h2 class="form-signin-heading">Login</h2><hr>
-    <input type="hidden" name = "_token" id "token" value = "{{ csrf_token() }}"/>
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="ref_id" type="text" class="form-control" name="ref_id"  value = "{{ old('ref_id')}}" placeholder="SAP ID">
-    </div><br/> 
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-    </div><br/>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
-</form>
+
+    <div class="page col-xs-10 col-sm-6 col-md-5  col-centered">
+        <div class="w3-card-4 w3-white">
+            <div class="w3-container ">
+                <br/><h2>Login</h2><hr>
+            </div>
+            <form class="w3-container" action="/login" method = "POST" id = "loginForm">
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-10 col-md-10 col-sm-offset-1">
+                        <div class="alert alert-info alert-white rounded" id = "alert">
+                            <div class="icon">
+                                <i class="fa fa-info-circle"></i>
+                            </div>
+                            You need Faculty's account to register and login by ID.
+                        </div>  
+                    </div>
+                </div>
+                <input type="hidden" name ="_token" value = "{{ csrf_token() }}">
+                <input type="hidden" name ="document_id" id = "document_id" value = "">
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-10 col-md-10 col-sm-offset-1">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="ref_id" type="text" class="form-control" name="ref_id"  value = "{{ old('ref_id')}}" placeholder="SAP ID">     
+                       </div>
+                    </div>
+                </div>
+                <br/>
+                <div class = "row">
+                    <div class="page col-xs-12 col-sm-10 col-md-10 col-sm-offset-1">
+                       <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row" >
+                    <center><button type="submit" name="submit"  id = "submit" class="w3-btn w3-margin-bottom"><i class="fa fa-check"></i> Login</button></center>
+                </div>
+            </div>
+            <br/>
+            </form>
+        </div>
+    </div>
 </div>
     <script src='/js/new_js/jquery.min.js'></script>
     <script src='/js/new_js/bootstrap.min.js'></script>
@@ -78,12 +192,16 @@ body {
     <script src="/js/new_js/validate.js"></script>
     <script type="text/javascript" src="/js/new_js/toastr.min.js"></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.4.5/js/bootstrapValidator.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="/js/new_js/fileinput.min.js"></script>
     <script>
-      @if( session('status') )
-        toastr.warning("{{ session('status') }}");
-      @endif
+    
+    @if( session('status') )
+          
+  toastr.warning("{{ session('status') }}");
+        
+  @endif
+    
+  $('#alert').addClass('animated bounce');
     </script>
+    
     </body>
     </html>

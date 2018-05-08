@@ -60,6 +60,7 @@ class RegisterController extends Controller
         if ( !$response ) {
             return redirect()->back()->withInput()->with('status', 'Service error please try again later.');
         }
+        $response['reply_text'] = "You need Faculty's account to register and login by ID.";
             
             // switch ($response['reply_code']) {
             //     case 1:
@@ -83,7 +84,8 @@ class RegisterController extends Controller
             // }
             // return redirect()->back()->withInput()->with('status', $text);
 
-        return redirect()->back()->with('line', $response);
+        // return redirect()->back()->with('line', $response);
+        return redirect('/login')->with('alert',$response);
     }
 
     public function checkLINEVerify(\Illuminate\Http\Request  $request)
