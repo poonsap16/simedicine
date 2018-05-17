@@ -90,8 +90,6 @@ hr {
   border: 1px solid #bdbdbd;
   padding-top: 15px;
 }
-
-
 .alert-white .icon:after {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
@@ -111,7 +109,6 @@ hr {
   margin-top: -3px;
   background: #fff;
 }
-
 .alert-white .icon i {
   font-size: 20px;
   color: #fff;
@@ -120,13 +117,11 @@ hr {
   position: absolute;
   top: 50%;
 }
-
 .alert-info {
   background-color: #d9edf7;
   border-color: #98cce6;
   color: #3a87ad;
 }
-
 .alert-white.alert-info .icon, 
 .alert-white.alert-info .icon:after {
   border-color: #3a8ace;
@@ -135,20 +130,6 @@ hr {
 </style>
 </head>
 <body>
-@if( session('line') )
-            <div id="verify">
-                <input type="hidden"  id = "username" name = "username" value = "{{ session('line')['username'] }}">
-                <!-- <button name = "check-verify" id = "check-verify" onclick="myFunction()">check verify</button> -->
-                <center>
-                    <h1>Please add IMISU as a friend on LINE application,</h1>
-                    <h1>then verify by given 6 digits code below</h1>
-                    <img src="{{ session('line')['line_qrcode_url'] }}" alt="">
-                    <font color="red"><h1>Verify code : {{ session('line')['line_verify_code'] }}</h1></font>
-                    <br/>
-                    <h3><i>* This QR-Code is just for you, please DO NOT SHARE it. THANKS.</i></h3>
-                    </center>
-                </div>
-        @else
 <div class="wrapper">
     <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
         <div class="w3-card-4 w3-white">
@@ -224,17 +205,10 @@ hr {
             </form>
         </div>
     </div>
-</div>
-<div align = "center">
-    @endif
-    {{-- @if( $errors->any() ) --}}
-    @if( session('status') )
-    {!! session('status') !!}
-    {{-- 
-    <b><i>The ID <u>{{ old('ref_id') }}</u> is already taken. If you think it was wrong please contact Nalinee. YES, THE NALINEE.</i></b>
-     --}}
-    @endif
+    <div class="page col-xs-12 col-sm-12 col-md-12">
+    <center><a href="{{url('/login')}}"><font color="#0073e6">Sign in</font></a></center>
     </div>
+</div>
     <script src='/js/new_js/jquery.min.js'></script>
     <script src='/js/new_js/bootstrap.min.js'></script>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -261,10 +235,10 @@ hr {
          });
          $(function(){
             var ref_id_length = 8;
-            $("#ref_id").keyup(function(){ // เมื่อ textarea id เท่ากับ data  มี event keyup
-                var this_length=ref_id_length-$(this).val().length; // หาจำนวนตัวอักษรที่เหลือ
+            $("#ref_id").keyup(function(){
+                var this_length=ref_id_length-$(this).val().length;
                 if(this_length<0){
-                    $(this).val($(this).val().substr(0,8)); // แสดงตามจำนวนตัวอักษรที่กำหนด
+                    $(this).val($(this).val().substr(0,8));
                 }         
             });
          
@@ -429,7 +403,6 @@ hr {
     function validatename(name){ // validate email user
         var name = $('#name');
         if (name.val() != ''){
-            validatePassword($('#password').val());
             $.ajax({
                     type: 'POST',
                     data: {
@@ -448,69 +421,6 @@ hr {
                         name.closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
                         name.closest('.form-group').find('i.fa').remove();
                         name.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
-                        disableButton();
-                    }
-                },
-                error: function(){ },
-            url: '/validate',
-            cache:false
-            });
-        }
-    }
-    function validatePassword(password){
-        validateRePassword();
-        var password = $('#password');
-        if (password.val() != ''){
-            $.ajax({
-                    type: 'POST',
-                    data: {
-                    '_token' : '{{ csrf_token()}}',
-                    'name' : $('#name').val(),
-                    'password': $('#password').val() 
-                },
-                success: function(data) {
-                    if (data.reply_code != 0) {
-                        $('#password_error').html( data.reply_text);
-                        password.closest('.form-group').removeClass('has-success').addClass('has-error has-feedback');
-                        password.closest('.form-group').find('i.fa').remove();
-                        password.closest('.form-group').append('<i class="fa fa-close  fa-lg form-control-feedback"></i>');
-                        disableButton();
-                    }else{
-                        $('#password_error').html("");
-                        password.closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
-                        password.closest('.form-group').find('i.fa').remove();
-                        password.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
-                        disableButton();
-                    }
-                },
-                error: function(){ },
-            url: '/validate',
-            cache:false
-            });
-        }
-    }
-    function validateRePassword(re_password){
-        var re_password = $('#re_password');
-        if (re_password.val() != ''){
-            $.ajax({
-                    type: 'POST',
-                    data: {
-                    '_token' : '{{ csrf_token()}}',
-                    'password' : $('#password').val(),
-                    're_password': $('#re_password').val() 
-                },
-                success: function(data) {
-                    if (data.reply_code != 0) {
-                        $('#re_password_error').html(data.reply_text);
-                        re_password.closest('.form-group').removeClass('has-success').addClass('has-error has-feedback');
-                        re_password.closest('.form-group').find('i.fa').remove();
-                        re_password.closest('.form-group').append('<i class="fa fa-close  fa-lg form-control-feedback"></i>');
-                        disableButton();
-                    }else{
-                        $('#re_password_error').html("");
-                        re_password.closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
-                        re_password.closest('.form-group').find('i.fa').remove();
-                        re_password.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');  
                         disableButton();
                     }
                 },

@@ -1,11 +1,12 @@
 <html lang="en-US">
 <head>
-<title>Register</title>
+<title>Login</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 <link rel="stylesheet" href="/css/bower_components/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/new_css/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+<link rel="stylesheet" href="{{ url('/css/new_css/toastr.css')}}"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <meta charset="utf-8">
@@ -143,7 +144,7 @@ hr {
     <div class="page col-xs-10 col-sm-6 col-md-5  col-centered">
         <div class="w3-card-4 w3-white">
             <div class="w3-container ">
-                <br/><h2>Login</h2><hr>
+                <br/><h2>Sign in</h2><hr>
             </div>
             <form class="w3-container" action="/login" method = "POST" id = "loginForm">
                 <div class="row">
@@ -192,15 +193,10 @@ hr {
     <script src="/js/new_js/validate.js"></script>
     <script type="text/javascript" src="/js/new_js/toastr.min.js"></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.4.5/js/bootstrapValidator.js'></script>
-    <script>
-    
-    @if( session('status') )
-          
-  toastr.warning("{{ session('status') }}");
-        
-  @endif
-    
-  $('#alert').addClass('animated bounce');
+    <script>   
+@if( session('status') )toastr.warning("{{ session('status') }}");@endif
+@if( session('alert') )toastr.success("{{ session('alert') }}"); @endif 
+$('#alert').addClass('animated bounce');
     </script>
     
     </body>

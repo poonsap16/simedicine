@@ -10,7 +10,7 @@ class UserController extends Controller
    
     public function __construct()
     {
-        $this->middleware('auth')->except('querySapId');
+        $this->middleware('auth')->except('querySapId','addUsersForm');
     }
     /**
      * Display a listing of the resource.
@@ -89,5 +89,10 @@ class UserController extends Controller
             default :
                 return 'not allow';
         }
+    }
+    public function profile(){
+        $user =  Auth::user();
+        // $role_id = $this->checkRoleId($user['role_id']);
+       return view('profile');
     }
 }

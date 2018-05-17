@@ -20,10 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('ref_id'); // SAP/STUDENT/USERNAME encrypted
             $table->string('email'); // encrypted
             $table->string('full_name', 512); // encrypted
-            $table->string('division_id');
             $table->boolean('gender');
-            $table->string('pln')->nullable(); // encrypted - professional licence no
-            $table->tinyInteger('role_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

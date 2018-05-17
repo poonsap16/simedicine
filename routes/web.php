@@ -32,6 +32,8 @@ Route::post('/validate', ['as' => 'register', 'uses' => 'Auth\RegisterController
 Route::get('/login',['as'=>'login','uses'=>'Auth\LoginController@showLoginForm']);
 Route::post('/login', 'Auth\LoginController@authenticate');
 
+Route::get('/profile','UserController@profile');
+
 Route::get('/logout', function () {
     Auth::logout();
     return view('auth.login');

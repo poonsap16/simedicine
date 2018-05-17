@@ -15,7 +15,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/add-users';
+    protected $redirectTo = '/profile';
     /**
      * Create a new controller instance.
      *
@@ -44,35 +44,37 @@ class LoginController extends Controller
                 'secret' => env('waja_secret')
             ],
             'form_params' => [
-                'ref_id'=> $request->ref_id,
+                'org_id'=> $request->ref_id,
                 'password'=> $request->password
             ]
         ]);
-        $user = json_decode($response->getBody(), true);
         
+        $user = json_decode($response->getBody(), true);
         // // ***
         // Log::info('waja response => ' . json_encode($user));
         // // ***
-        return $user;
         if ( $user['reply_code'] != 0 ) {
             switch ($user['reply_code']) {
                 case 1:
-                    $text = "ข้อมูลไม่สมบูรณ์";
+                    $text = "Incomplete request";
+                    break;
+                case 3:
+                    $text = "Wrong password";
                     break;
                 case 5:
-                    $text = "บัญชีของคุณยังไม่ได้รับการตรวจสอบ";
+                    $text = "Account not verify";
                     break;
                 case 6:
-                    $text = "กรุณากรอกข้อมูลให้ถูกต้อง";
+                    $text = "Account not found";
                     break;
                 case 8:
-                    $text = "คุณพยายามเข้าสู่ระบบมากเกินไป";
+                    $text = "You have attempted to log in too many times, please wait 5 minutes before continue";
                     break;
                 case 9:
-                    $text = "บัญชีของคุณหมดอายุการใช้แล้ว";
+                    $text = "Please try to login again.";
                     break;
                 default:
-                    $text = "โปรดลองเข้าสู่ระบบอีกครั้ง";
+                    $text = "Please try to login again.";
                     break;
             }
             return redirect()->back()->withInput()->with('status', $text);
@@ -84,10 +86,7 @@ class LoginController extends Controller
             $new_user->ref_id = $user['ref_id'];
             $new_user->email = $user['email'];
             $new_user->full_name = $user['full_name'];
-            $new_user->division_id = $user['division_id'];
             $new_user->gender = $user['gender'];
-            $new_user->pln = $user['pln'];
-            $new_user->role_id = $user['status'];
             $new_user->save();
             
             // // ***
