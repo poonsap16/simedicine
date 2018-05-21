@@ -60,39 +60,4 @@ class UserController extends Controller
             return $data;
         }
     }
-    public function addUsersForm(){
-        $user =  Auth::user();
-        $role_id = $this->checkRoleId($user['role_id']);
-        if ($role_id != 'admin'){
-            return "ไม่มีสิทธิ์จ้า";
-        }
-        $divisions = \App\Division::all();
-        $registry = null;
-        $statuses[] = ['id' => 0,'name' => 'Administrator'];
-        $statuses[] = ['id' => 1,'name' => 'เจ้าหน้าที่ภาควิชา'];
-        $statuses[] = ['id' => 2,'name' => 'อาจารย์'];
-        $statuses[] = ['id' => 3,'name' => 'แพทย์ประจำบ้าน'];
-        $statuses[] = ['id' => 4,'name' => 'แพทย์ประจำบ้านต่อยอด'];
-        return view('admin.registry',compact('divisions','registry','statuses'));
-    }
-
-    private function checkRoleId($role_id){
-        
-        switch($role_id)
-        {
-            case '0' :
-                return 'admin';
-                break;
-            case '1' :
-                return 'teacher';
-                break;
-            default :
-                return 'not allow';
-        }
-    }
-    public function profile(){
-        $user =  Auth::user();
-        // $role_id = $this->checkRoleId($user['role_id']);
-       return view('profile');
-    }
 }

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="/css/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ url('/css/font-awesome/css/font-awesome.min.css')}}">
   <!-- <link rel="stylesheet" href="/css/new_css/quiz.css"> -->
   <link rel="stylesheet" href="/css/new_css/w3.css">
   <link rel="stylesheet" href="/css/new_css/hover-min.css">
@@ -50,7 +50,87 @@ hr {
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
+.alert {
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  display: table;
+  width: 100%;
+}
 
+.alert-white {
+  background-image: linear-gradient(to bottom, #fff, #f9f9f9);
+  border-top-color: #d8d8d8;
+  border-bottom-color: #bdbdbd;
+  border-left-color: #cacaca;
+  border-right-color: #cacaca;
+  color: #404040;
+  padding-left: 61px;
+  position: relative;
+}
+
+.alert-white.rounded {
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.alert-white.rounded .icon {
+  border-radius: 3px 0 0 3px;
+  -webkit-border-radius: 3px 0 0 3px;
+}
+
+.alert-white .icon {
+  text-align: center;
+  width: 45px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #bdbdbd;
+  padding-top: 15px;
+}
+
+
+.alert-white .icon:after {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border: 1px solid #bdbdbd;
+  position: absolute;
+  border-left: 0;
+  border-bottom: 0;
+  top: 50%;
+  right: -6px;
+  margin-top: -3px;
+  background: #fff;
+}
+
+.alert-white .icon i {
+  font-size: 20px;
+  color: #fff;
+  left: 12px;
+  margin-top: -10px;
+  position: absolute;
+  top: 50%;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #98cce6;
+  color: #3a87ad;
+}
+
+.alert-white.alert-info .icon, 
+.alert-white.alert-info .icon:after {
+  border-color: #3a8ace;
+  background: #4d90fd;
+}
 /* Safari */
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
@@ -82,7 +162,9 @@ A:hover { COLOR: #404040; TEXT-DECORATION: none; font-weight: none }
             <div class = "row">
             <font color="#404040"><h2><b>Notification</b></h2></font><hr>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-centered" id = "loadbar" style="display: none;">
-                    <center><div class="loader"></div></center>
+                    <div class = "row">
+                    <center><div class="loader"></div><br/><br/><br/><br/></center>
+                    </div>
                 </div>
             </div>
             <div class = "row">
@@ -95,12 +177,22 @@ A:hover { COLOR: #404040; TEXT-DECORATION: none; font-weight: none }
                     </div>
                 </div>
                 <div id = "email_verify"  style="display: none;">
-                    <div class="page col-xs-8 col-sm-8  col-md-8 col-sm-offset-2 col-xs-offset-2">
-                        <div class="form-group">
-                            <label for="inputlg">Verify Code :</label>
-                                <input class="form-control input-lg" id="verify_code" type="text" style="text-align:center;">
-                        </div>
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-12 col-md-12">
+                        <div class="alert alert-info alert-white rounded" id = "alert">
+                            <div class="icon">
+                                <i class="fa fa-info-circle"></i>
+                            </div>
+                            The verify code was sent, Please check you email.
+                        </div>  
                     </div>
+                </div>
+                         <div class="page col-xs-8 col-sm-8  col-md-8 col-sm-offset-2 col-xs-offset-2">
+                                  <div class="form-group">
+                                    <label for="inputlg">Verify Code :</label>
+                                    <input class="form-control input-lg" id="verify_code" type="text" style="text-align:center;">
+                                </div>
+                        </div>
                 </div>
                 <div id = "line_verify"  style="display: none;">
                         <div class="page col-xs-8 col-sm-8  col-md-8 col-sm-offset-2 col-xs-offset-2">
@@ -172,13 +264,7 @@ $(function(){
     	}, 1500);
     });
 });	
+$('#alert').addClass('animated bounce');
 </script>
-
-
-
-
-
-
-
 </body>
 </html>
