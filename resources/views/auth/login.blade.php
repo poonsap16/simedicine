@@ -189,6 +189,7 @@ hr {
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/js/toastr.min.js"></script>
     <script>   
 @if( session('status') )toastr.warning("{{ session('status') }}");@endif
 @if( session('alert') )toastr.success("{{ session('alert') }}"); @endif 

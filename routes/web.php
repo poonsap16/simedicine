@@ -33,6 +33,8 @@ Route::get('/login',['as'=>'login','uses'=>'Auth\LoginController@showLoginForm']
 Route::post('/login', 'Auth\LoginController@authenticate');
 
 Route::get('/profile','UserController@profile');
+Route::post('/send-email-verify','Verifycontroller@sendEmailVerify');
+Route::post('/email-verify-code','Verifycontroller@emailVerifyCode');
 
 Route::get('/logout', function () {
     Auth::logout();

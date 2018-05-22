@@ -34,7 +34,6 @@ class UserController extends Controller
         //     "org_division_name" => "สนง.ภาควิชาอายุรศาสตร์",
         //     "org_position_title" => "นักวิชาการคอมพิวเตอร์"
         // ];
-        
         $client = new Client([
             'base_uri' => env('waja_host'), // base URL
             'timeout'  => 8.0, // you better set timeout greater than 5 seconds
@@ -59,5 +58,10 @@ class UserController extends Controller
             // }
             return $data;
         }
+    }
+    public function profile(){
+        $user =  Auth::user();
+        // $role_id = $this->checkRoleId($user['role_id']);
+       return view('profile');
     }
 }

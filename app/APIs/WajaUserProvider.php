@@ -24,7 +24,7 @@ class WajaUserProvider
 
     public function checkField(Array $data)
     {
-        $response = $this->api->post('/check-register-data', ['form_params' => $data]);;
+        $response = $this->api->post('/check-register-data', ['form_params' => $data]);
         if ( $response->getStatusCode() == 200 ) {
             return json_decode($response->getBody(), true);
         }
@@ -60,6 +60,24 @@ class WajaUserProvider
     public function addUser(Array $data)
     {
         $response = $this->api->post('/add-user', ['form_params' => $data]);
+        if ( $response->getStatusCode() == 200 ) {
+            return json_decode($response->getBody(), true);
+        }
+
+        return false;
+    }
+    // send email and user to waja 
+    public function sendEmailVerify(Array $data){
+        $response = $this->api->post('/send-email-verify', ['form_params' => $data]);
+        if ( $response->getStatusCode() == 200 ) {
+            return json_decode($response->getBody(), true);
+        }
+
+        return false;
+    }
+    //check email verify code 
+    public function checkEmailVerify(Array $data){
+        $response = $this->api->post('/check-email-verify', ['form_params' => $data]);
         if ( $response->getStatusCode() == 200 ) {
             return json_decode($response->getBody(), true);
         }
