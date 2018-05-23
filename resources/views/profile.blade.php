@@ -10,12 +10,14 @@
 <link rel="stylesheet" href="/css/new_css/w3.css">
 <link rel="stylesheet" href="/css/new_css/hover-min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+<!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
     #verify_code { height: 60px;font-size: 30px;}
     body {
@@ -162,10 +164,10 @@
                 <div id = "select_channel">
                     <div class ="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <button id = "email" class="w3-btn w3-blue w3-xxlarge button hvr-grow" style="width:100%"><span class="fa fa-envelope"></span>  Email </button>
+                            <button id = "email_button" class="w3-btn w3-blue w3-xxlarge button hvr-grow" style="width:100%"><span class="fa fa-envelope"></span>  Email </button>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <button id = "line" class="w3-btn w3-green w3-xxlarge button hvr-grow" style="width:100%"><span class="fa fa-comments"></span>  Line</button>
+                            <button id = "line_button" class="w3-btn w3-green w3-xxlarge button hvr-grow" style="width:100%"><span class="fa fa-comments"></span>  Line</button>
                         </div>
                     </div> 
                     <div class = "row"><hr>
@@ -190,10 +192,11 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class = "row"><hr>
                     <div class="page col-xs-12 col-sm-12 col-md-12">
-                        <center><a href="#" onclick="javascript:myFunc()" id = "resend"><font color="#0073e6">Resend</font></a></center>
-                        <center><a href="#"><font color="#0073e6">Change Email</font></a></center>
+                        <center><a href="#" onclick="javascript:resend()" id = "resend"><font color="#0073e6">Resend</font></a></center>
+                        <center><a href="#" onclick="javascript:changeEmail()"><font color="#0073e6">Change Email</font></a></center>
                     </div>
                 </div>
             </div>
@@ -213,22 +216,18 @@
 
                <div id = "change_email"  style="display: none;">
                 <div class ="row">
-                    <div class="page col-xs-12 col-sm-12  col-md-12 col-sm-offset-2">
+                    <div class="page col-xs-12 col-sm-12  col-md-12">
                         <div class="form-group">
-                            <label for="new_email">New Email :</label>
-                            <input class="form-control input-md" id="new_email" type="text" style="text-align:center;">
-                            <span class="help-block" id = "new_email_error"></span>
+                            <label for="inputlg">New Email :</label>
+                            <input class="form-control input-lg" id="email" type="text" style="text-align:center;" oninput="validateEmail(this);"> 
+                            <span class="help-block" id = "email_error"></span>
                         </div>
                     </div>
                 </div>
                 <div class ="row">
-                    <div class="page col-xs-12 col-sm-12  col-md-12 col-sm-offset-2">
-                        <div class="form-group">
-                            <label for="comfirm_password">Confirm Password:</label>
-                            <input class="form-control input-md" id="confirm_password" type="text" style="text-align:center;">
-                            <span class="help-block" id = "comfirm_password_error"></span>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <center><button id = "change_email_button" class="w3-btn w3-blue w3-large button hvr-grow"><span class="fa fa-check"></span> Submit </button></center>
                         </div>
-                    </div>
                 </div>
                 <div class = "row"><hr>
                     <div class="page col-xs-12 col-sm-12 col-md-12">
@@ -243,6 +242,7 @@
 
 <script>
     $( document ).ready(function() {
+        document.getElementById("change_email_button").disabled = true;
         $("#verify_code").keydown(function (e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                 (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
@@ -265,8 +265,70 @@
             });
          
         });
-    });
 
+    });
+    function validateEmail(email){ // validate email user
+        var email = $('#email');
+        if (email.val() != ''){
+            $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'email': $('#email').val() 
+                },
+                success: function(data) {
+                    // console.log(data);
+                    if (data.reply_code != 0) {
+                        $('#email_error').html(data.reply_text);
+                        email.closest('.form-group').removeClass('has-success').addClass('has-error has-feedback');
+                        email.closest('.form-group').find('i.fa').remove();
+                        email.closest('.form-group').append('<i class="fa fa-close  fa-lg form-control-feedback"></i>');
+                        disableButton();
+                    }else{
+                        $('#email_error').html("");
+                        email.closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                        email.closest('.form-group').find('i.fa').remove();
+                        email.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
+                        disableButton();
+                    }
+                },
+                error: function(){ },
+            url: '/validate',
+            cache:false
+            });
+        }
+    }
+ function validatePassword(password){
+        var password = $('#password');
+        if (password.val() != ''){
+            $.ajax({
+                    type: 'POST',
+                   data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'password': $('#password').val() 
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.reply_code != 0) {
+                        $('#password_error').html( data.reply_text);
+                        password.closest('.form-group').removeClass('has-success').addClass('has-error has-feedback');
+                        password.closest('.form-group').find('i.fa').remove();
+                        password.closest('.form-group').append('<i class="fa fa-close  fa-lg form-control-feedback"></i>');
+                    //    disableButton();
+                    }else{
+                        $('#password_error').html("");
+                       password.closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                       password.closest('.form-group').find('i.fa').remove();
+                        password.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
+                        // disableButton();
+                    }
+                },
+               error: function(){ },
+            url: '/validate',
+            cache:false
+           });
+        }
+    }
 $(function(){
     var loading = $('#loadbar').hide();
     var email_verify = $('#email_verify').hide();
@@ -282,7 +344,7 @@ $(function(){
     //   line_verify.hide();
     // });
     
-    $("#email").on('click',function () {
+    $("#email_button").on('click',function () {
     	$('#select_channel').hide();
         $('#loadbar').show();
     	setTimeout(function(){   
@@ -310,7 +372,35 @@ $(function(){
            
     	}, 1500);
     });
-    $("#line").on('click',function () {
+    $("#change_email_button").on('click',function () {
+    	$('#change_email').hide();
+        $('#loadbar').show();
+    	setTimeout(function(){   
+            $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'email' : $('#email').val()
+                    },
+                success: function(data) {
+                        if (data.reply_code == 0){
+                            console.log(data);
+                            $('#loadbar').hide();   
+                            $('#email_verify').show();
+                        }else {
+                            console.log(data);
+                            $('#loadbar').hide();
+                            $('#select_channel').show();
+                        }
+                },
+                error: function(){ },
+            url: '/change-email',
+            cache:false
+        });
+           
+    	}, 1500);
+    });
+    $("#line_button").on('click',function () {
     	$('#select_channel').hide();
         $('#loadbar').show();
     	setTimeout(function(){   
@@ -359,7 +449,7 @@ $('#verify_code').on('input', function(e) {
     }
 </script>
 <script>
-   function myFunc() {
+   function resend() {
         $('#email_verify').hide();
         $('#loadbar').show();   
         setTimeout(function(){   
@@ -385,9 +475,27 @@ $('#verify_code').on('input', function(e) {
             url: '/send-email-verify',
             cache:false
         });   
-    	}, 1500);
-        
+    	}, 1500);   
     }
+    function changeEmail(){
+        $('#email_verify').hide();
+        $('#loadbar').show();
+        setTimeout(function(){
+            $('#loadbar').hide();   
+            $('#change_email').show();
+    	}, 1500);   
+    }
+    function disableButton(){
+       document.getElementById("change_email_button").disabled = true;
+        var email = document.getElementById('email').value;        
+        var email_error = document.getElementById('email_error').innerHTML;
+        if( email != '' && email_error == ''){
+            document.getElementById("change_email_button").disabled = false;
+        }else {
+            document.getElementById("change_email_button").disabled = true;
+        }
+   }
+
 </script>
 </body>
 </html>

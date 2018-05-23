@@ -7,9 +7,11 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
-   
+    protected $wajaApi;
+
     public function __construct()
     {
+        $this->wajaApi = new \App\APIs\WajaUserProvider();
         $this->middleware('auth')->except('querySapId','addUsersForm');
     }
     /**
@@ -63,5 +65,11 @@ class UserController extends Controller
         $user =  Auth::user();
         // $role_id = $this->checkRoleId($user['role_id']);
        return view('profile');
+    }
+    public function changeEmail(Request $request){
+        $user = Auth::user();
+        $data = $request->all() + ['user_id'=> $user->id];
+        $response = $this->wajaApi->changeEmail($data);
+        return $response;
     }
 }
