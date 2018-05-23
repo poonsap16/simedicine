@@ -37,14 +37,10 @@ class VerifyController extends Controller
 
     public function emailVerifyCode(Request $request)
     {
-        $response = $this->wajaApi->checkEmailVerify($request->all());
+        $user = Auth::user();
+        $data = [ 'id' => $user->id,
+                  'verify_code' => $request->verify_code];
+        $response = $this->wajaApi->checkEmailVerify($data);
         return $response;
-        if( $request->verify_code == 123456){
-            return $response = [ 'reply_code' => 0 ,
-                                 'reply_text' => 'code is correctly'];
-        }else {
-            return $response = [ 'reply_code' => 1 ,
-                                 'reply_text' => 'code not match'];
-        }
     }
 }

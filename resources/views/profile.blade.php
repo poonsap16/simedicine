@@ -192,7 +192,7 @@
                 </div>
                 <div class = "row"><hr>
                     <div class="page col-xs-12 col-sm-12 col-md-12">
-                        <center><a href="#"><font color="#0073e6">Resend</font></a></center>
+                        <center><a href="#" onclick="javascript:myFunc()" id = "resend"><font color="#0073e6">Resend</font></a></center>
                         <center><a href="#"><font color="#0073e6">Change Email</font></a></center>
                     </div>
                 </div>
@@ -207,6 +207,33 @@
                 <div class = "row"><hr>
                     <div class="page col-xs-12 col-sm-12 col-md-12">
                         footer
+                    </div>
+                </div>
+            </div>
+
+               <div id = "change_email"  style="display: none;">
+                <div class ="row">
+                    <div class="page col-xs-12 col-sm-12  col-md-12 col-sm-offset-2">
+                        <div class="form-group">
+                            <label for="new_email">New Email :</label>
+                            <input class="form-control input-md" id="new_email" type="text" style="text-align:center;">
+                            <span class="help-block" id = "new_email_error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class ="row">
+                    <div class="page col-xs-12 col-sm-12  col-md-12 col-sm-offset-2">
+                        <div class="form-group">
+                            <label for="comfirm_password">Confirm Password:</label>
+                            <input class="form-control input-md" id="confirm_password" type="text" style="text-align:center;">
+                            <span class="help-block" id = "comfirm_password_error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class = "row"><hr>
+                    <div class="page col-xs-12 col-sm-12 col-md-12">
+                        <center><a href="#" onclick="javascript:myFunc()" id = "resend"><font color="#0073e6">Resend</font></a></center>
+                        <center><a href="#"><font color="#0073e6">Change Email</font></a></center>
                     </div>
                 </div>
             </div>
@@ -263,10 +290,7 @@ $(function(){
                     type: 'POST',
                     data: {
                     '_token' : '{{ csrf_token()}}',
-                    'type' : 'send_email',
-                    // 'id': '{{Auth::user()->id}}',
-                    // 'email': '{{ Auth::user()->email}}',
-                    // 'username' : '{{ Auth::user()->name}}'
+                    'type' : 'send_email'
                 },
                 success: function(data) {
                         if (data.reply_code == 0){
@@ -305,8 +329,7 @@ $('#verify_code').on('input', function(e) {
                     type: 'POST',
                     data: {
                     '_token' : '{{ csrf_token()}}',
-                    'id': '{{Auth::user()->id}}',
-                    'username': '{{Auth::user()->name}}',
+                    'type': 'verify_code',
                     'verify_code': $('#verify_code').val() 
                 },
                 success: function(data) {
@@ -330,6 +353,41 @@ $('#verify_code').on('input', function(e) {
         });
             }
             });
+
+   function  someFunction(e){
+        alert('test');
+    }
+</script>
+<script>
+   function myFunc() {
+        $('#email_verify').hide();
+        $('#loadbar').show();   
+        setTimeout(function(){   
+             $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'type' : 'resend_email'
+                },
+                success: function(data) {
+                        if (data.reply_code == 0){
+                            console.log(data);
+                            $('#loadbar').hide();   
+                            $('#email_verify').show();
+                        }else {
+                            console.log(data);
+                            $('#loadbar').hide();
+                            $('#email_verify').show();
+                            alert('ส่งไม่สำเร็จ');
+                        }
+                },
+                error: function(){ },
+            url: '/send-email-verify',
+            cache:false
+        });   
+    	}, 1500);
+        
+    }
 </script>
 </body>
 </html>
