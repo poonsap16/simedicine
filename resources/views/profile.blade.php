@@ -263,9 +263,10 @@ $(function(){
                     type: 'POST',
                     data: {
                     '_token' : '{{ csrf_token()}}',
-                    'id': '{{Auth::user()->id}}',
-                    'email': '{{ Auth::user()->email}}',
-                    'username' : '{{ Auth::user()->name}}'
+                    'type' : 'send_email',
+                    // 'id': '{{Auth::user()->id}}',
+                    // 'email': '{{ Auth::user()->email}}',
+                    // 'username' : '{{ Auth::user()->name}}'
                 },
                 success: function(data) {
                         if (data.reply_code == 0){

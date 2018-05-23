@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use Illuminate\Support\Facades\Auth;
 class VerifyController extends Controller
 {
     protected $wajaApi;
@@ -26,7 +26,12 @@ class VerifyController extends Controller
      */
     
     public function sendEmailVerify(Request $request){
-        $response = $this->wajaApi->sendEmailVerify($request->all());
+        $user = Auth::user();
+        $data = ['id' => $user->id,
+                 'email' => $user->email,
+                 'username' => $user->name,
+                 'type' => $request->type ];
+        $response = $this->wajaApi->sendEmailVerify($data);
         return $response;
     }
 
