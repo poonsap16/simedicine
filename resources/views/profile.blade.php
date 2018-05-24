@@ -145,7 +145,8 @@
 <body>
     <div id= "navbar" class="w3-bar w3-border w3-white">
         <font color="#404040">
-            <a href = "{{ url('/profile') }}" class="w3-bar-item w3-button w3-padding-24">Profile</a>
+                &nbsp;&nbsp;<a href="{{ url('/profile') }}"><img src='{{ url("/logo/imisu.png")}}' width="100" class="c-slacklogo--color" alt="Slack"/></a>
+            <!-- <a href = "{{ url('/profile') }}" class="w3-bar-item w3-button w3-padding-24">Profile</a> -->
             <div style="float:right">
                 <a  class="w3-bar-item w3-button w3-padding-24"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name}}</a>
                 <a href="{{ url('/logout') }}" class="w3-bar-item w3-button w3-padding-24"><span class="glyphicon glyphicon-log-out"></span> Sign out</a></a>
@@ -155,13 +156,13 @@
     <div class="form-horizontal">
         <div class="page col-xs-10 col-sm-8 col-md-5 col-centered" id = "wrap">
             <div class = "row">
-                <font color="#404040"><h2><b>Notification</b></h2></font><hr>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-centered" id = "loadbar" style="display: none;">
                         <div class = "row">
-                            <center><div class="loader"></div><br/><br/><br/><br/></center></div>
+                            <center><br/><br/><br/><br/><div class="loader"></div><br/><br/><br/><br/></center></div>
                         </div>
                     </div>
                 <div id = "select_channel">
+                    <font color="#404040"><h2><b>Please select a notification.</b></h2></font><hr>
                     <div class ="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <button id = "email_button" class="w3-btn w3-blue w3-xxlarge button hvr-grow" style="width:100%"><span class="fa fa-envelope"></span>  Email </button>
@@ -175,6 +176,7 @@
                 </div>
             
             <div id = "email_verify"  style="display: none;">
+                <font color="#404040"><h2><b>Email notification</b></h2></font><hr>
                 <div class="row">
                     <div class="page col-xs-12 col-sm-12 col-md-12">
                         <div class="alert alert-info alert-white rounded" id = "alert">
@@ -185,42 +187,74 @@
                 </div>
                 <div class ="row">
                     <div class="page col-xs-12 col-sm-8  col-md-8 col-sm-offset-2">
-                        <div class="form-group">
-                            <label for="inputlg">Verify Code :</label>
-                            <input class="form-control input-lg" id="verify_code" type="text" style="text-align:center;">
-                            <span class="help-block" id = "verify_error"></span>
+                        <div class="col-xs-12 col-sm-12  col-md-12">
+                            <div class="form-group">
+                                <label for="inputlg">Verify Code :</label>
+                                <input class="form-control input-lg" id="verify_code" type="text" style="text-align:center;">
+                                <span class="help-block" id = "verify_error"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class = "row"><hr>
-                    <div class="page col-xs-12 col-sm-12 col-md-12">
-                        <center><a href="#" onclick="javascript:resend()" id = "resend"><font color="#0073e6">Resend</font></a></center>
-                        <center><a href="#" onclick="javascript:changeEmail()"><font color="#0073e6">Change Email</font></a></center>
+                    <div class="page col-xs-12 col-sm-12 col-md-12" id = "footer" style="display: none;">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <center><a href="#" onclick="javascript:resend_for_email()" id = "resend"><font color="#0073e6"><span class="fa fa-share"></span>  Resend </font></a></center>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12" >  
+                            <center><a href="#" onclick="javascript:changeEmail_for_email()"><font color="#0073e6"><span class="fa fa-edit"></span> Change Email</font></a></center>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id = "line_verify"  style="display: none;">
+                <font color="#404040"><h2><b>Line notification</b></h2></font><hr>
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-12 col-md-12">
+                        <div class="alert alert-info alert-white rounded" id = "alert_line_verify">
+                            <div class="icon"><i class="fa fa-info-circle"></i></div>
+                                The QR code and The verify code was sent, Please check you email.
+                        </div>  
+                    </div>
+                </div>
                 <div class ="row">
                     <div class="page col-xs-12 col-sm-8  col-md-8 col-sm-offset-2">
-                        form
+                        
                     </div>
                 </div>
                 <div class = "row"><hr>
-                    <div class="page col-xs-12 col-sm-12 col-md-12">
-                        footer
+                    <div class="page col-xs-12 col-sm-12 col-md-12" id = "footer">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <center><a href="#" onclick="javascript:resend_for_line()" id = "resend"><font color="#0073e6"><span class="fa fa-share"></span> Resend</font></a></center>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12" >  
+                            <center><a href="#" onclick="javascript:changeEmail_for_line()"><font color="#0073e6"><span class="fa fa-edit"></span> Change Email</font></a></center>
+                        </div>
                     </div>
                 </div>
             </div>
 
                <div id = "change_email"  style="display: none;">
+               <font color="#404040"><h2><b>Change email</b></h2></font><hr>
+                <div class="row">
+                    <div class="page col-xs-12 col-sm-12 col-md-12">
+                        <div class="alert alert-info alert-white rounded" id = "change_email_alert">
+                            <div class="icon"><i class="fa fa-info-circle"></i></div>
+                                 When you change email, The verify code will be sent to your new email immediately.
+                        </div>  
+                    </div>
+                </div>
                 <div class ="row">
                     <div class="page col-xs-12 col-sm-12  col-md-12">
-                        <div class="form-group">
-                            <label for="inputlg">New Email :</label>
-                            <input class="form-control input-lg" id="email" type="text" style="text-align:center;" oninput="validateEmail(this);"> 
-                            <span class="help-block" id = "email_error"></span>
+                        <div class="col-xs-12 col-sm-12  col-md-12">    
+                            <div class="form-group">  
+                                <label for="inputlg">Input your new email :</label>
+                                <input class="form-control input-lg" id="email" type="text" style="text-align:center;" oninput="validateEmail(this);"> 
+                                <span class="help-block" id = "email_error"></span>
+                                <input type="hidden" id = "change_type">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,10 +264,6 @@
                         </div>
                 </div>
                 <div class = "row"><hr>
-                    <div class="page col-xs-12 col-sm-12 col-md-12">
-                        <center><a href="#" onclick="javascript:myFunc()" id = "resend"><font color="#0073e6">Resend</font></a></center>
-                        <center><a href="#"><font color="#0073e6">Change Email</font></a></center>
-                    </div>
                 </div>
             </div>
         </div>
@@ -359,9 +389,11 @@ $(function(){
                             console.log(data);
                             $('#loadbar').hide();   
                             $('#email_verify').show();
+                            $('#footer').show();
                         }else {
                             console.log(data);
                             $('#loadbar').hide();
+                            $('#footer').hide();
                             $('#select_channel').show();
                         }
                 },
@@ -370,7 +402,7 @@ $(function(){
             cache:false
         });
            
-    	}, 1500);
+    	}, 500);
     });
     $("#change_email_button").on('click',function () {
     	$('#change_email').hide();
@@ -380,13 +412,19 @@ $(function(){
                     type: 'POST',
                     data: {
                     '_token' : '{{ csrf_token()}}',
-                    'email' : $('#email').val()
+                    'email' : $('#email').val(),
+                    'change_type': $('#change_type').val()
                     },
                 success: function(data) {
                         if (data.reply_code == 0){
-                            console.log(data);
-                            $('#loadbar').hide();   
-                            $('#email_verify').show();
+                            if (data.change_type == 'email'){
+                                console.log(data);
+                                $('#loadbar').hide();   
+                                $('#email_verify').show();
+                            }else if (data.change_type =='line'){
+                                $('#loadbar').hide();   
+                                $('#line_verify').show();
+                            }
                         }else {
                             console.log(data);
                             $('#loadbar').hide();
@@ -397,16 +435,42 @@ $(function(){
             url: '/change-email',
             cache:false
         });
-           
-    	}, 1500);
+    	}, 500);
+        $('#verify_error').remove();
+        var verify_code = $('#verify_code');
+        verify_code.val('');
+        verify_code.closest('.form-group').find('i.fa').remove();
+        verify_code.closest('.form-group').removeClass('has-success has-error');
     });
     $("#line_button").on('click',function () {
     	$('#select_channel').hide();
         $('#loadbar').show();
     	setTimeout(function(){   
-            $('#loadbar').hide();   
-            $('#line_verify').show();
-    	}, 1500);
+            $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'type' : 'send_line'
+                },
+                success: function(data) {
+                        if (data.reply_code == 0){
+                            console.log(data);
+                            $('#loadbar').hide();   
+                            $('#line_verify').show();
+                            $('#footer').show();
+                        }else {
+                            console.log(data);
+                            $('#loadbar').hide();
+                            $('#footer').hide();
+                            $('#select_channel').show();
+                        }
+                },
+                error: function(){ },
+            url: '/send-line-verify',
+            cache:false
+        });
+         
+    	}, 500);
     });
 });	
 $('#alert').addClass('animated bounce');
@@ -443,13 +507,9 @@ $('#verify_code').on('input', function(e) {
         });
             }
             });
-
-   function  someFunction(e){
-        alert('test');
-    }
 </script>
 <script>
-   function resend() {
+   function resend_for_email() {
         $('#email_verify').hide();
         $('#loadbar').show();   
         setTimeout(function(){   
@@ -475,15 +535,21 @@ $('#verify_code').on('input', function(e) {
             url: '/send-email-verify',
             cache:false
         });   
-    	}, 1500);   
+    	}, 500);   
     }
-    function changeEmail(){
+    function changeEmail_for_email(){
+        var email = $('#email');
+        email.val('');
+        email.closest('.form-group').find('i.fa').remove();
+        email.closest('.form-group').removeClass('has-success has-error');
         $('#email_verify').hide();
         $('#loadbar').show();
         setTimeout(function(){
-            $('#loadbar').hide();   
+            $('#loadbar').hide(); 
+            $('#change_type').val('email');
             $('#change_email').show();
-    	}, 1500);   
+            
+    	}, 500);   
     }
     function disableButton(){
        document.getElementById("change_email_button").disabled = true;
@@ -495,7 +561,51 @@ $('#verify_code').on('input', function(e) {
             document.getElementById("change_email_button").disabled = true;
         }
    }
+   $('#change_email_alert').addClass('animated bounce');
+   $('#alert_line_verify').addClass('animated bounce');
 
+    function resend_for_line() {
+        $('#line_verify').hide();
+        $('#loadbar').show();   
+        setTimeout(function(){   
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'type' : 'resend_line'
+                },
+                success: function(data) {
+                        if (data.reply_code == 0){
+                            console.log(data);
+                            $('#loadbar').hide();
+                            $('#line_verify').show();
+                        }else {
+                            console.log(data);
+                            $('#loadbar').hide();
+                            $('#line_verify').show();
+                            alert('ส่งไม่สำเร็จ');
+                        }
+                },
+                error: function(){ },
+            url: '/send-line-verify',
+            cache:false
+        });   
+     	}, 500);   
+    }
+
+    function changeEmail_for_line() {
+        var email = $('#email');
+        email.val('');
+        email.closest('.form-group').find('i.fa').remove();
+        email.closest('.form-group').removeClass('has-success has-error');
+        $('#line_verify').hide();
+        $('#loadbar').show();   
+        setTimeout(function(){   
+            $('#loadbar').hide();
+            $('#change_type').val('line');
+            $('#change_email').show();
+     	}, 500);   
+    }
 </script>
 </body>
 </html>

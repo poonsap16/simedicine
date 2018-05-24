@@ -92,4 +92,13 @@ class WajaUserProvider
 
         return false;
     }
+
+    public function sendLineVerify(Array $data){
+        $response = $this->api->post('/send-line-verify', ['form_params' => $data]);
+        if ( $response->getStatusCode() == 200 ) {
+            return json_decode($response->getBody(), true);
+        }
+
+        return false;
+    }
 }

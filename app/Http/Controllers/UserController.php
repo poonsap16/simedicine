@@ -67,6 +67,7 @@ class UserController extends Controller
        return view('profile');
     }
     public function changeEmail(Request $request){
+        return $request->all();
         $user = Auth::user();
         $data = $request->all() + ['user_id'=> $user->id];
         $response = $this->wajaApi->changeEmail($data);

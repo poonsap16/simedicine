@@ -43,4 +43,13 @@ class VerifyController extends Controller
         $response = $this->wajaApi->checkEmailVerify($data);
         return $response;
     }
+    public function sendLineVerify(Request $request){
+        $user = Auth::user();
+        $data = ['id' => $user->id,
+                 'email' => $user->email,
+                 'username' => $user->name,
+                 'type' => $request->type ];
+        $response = $this->wajaApi->sendLineVerify($data);
+        return $response;
+    }
 }
