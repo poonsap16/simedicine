@@ -125,6 +125,7 @@ class RegisterController extends Controller
     }
     
     public function validateData (\Illuminate\Http\Request $request){
+
         $response = $this->wajaApi->checkField($request->all());
         return $response;
     }

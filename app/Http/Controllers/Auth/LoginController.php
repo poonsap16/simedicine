@@ -93,9 +93,6 @@ class LoginController extends Controller
             // Log::info('new user => ' . json_encode($new_user));
             // // ***
         }
-        
-        // Auth::loginUsingId($user['id']);
-        // ***
         Auth::loginUsingId($user['id'], false);
         // Log::info('user already exists => ' . json_encode(Auth::user()));
         return $this->sendLoginResponse($request);

@@ -39,6 +39,8 @@ Route::post('/email-verify-code','Verifycontroller@emailVerifyCode');
 Route::post('/send-line-verify','Verifycontroller@sendLineVerify');
 
 
+Route::post('/check-email-line-verify','Verifycontroller@checkEmailLineVerify');
+
 Route::post('/change-email','UserController@changeEmail');
 Route::get('/logout', function () {
     Auth::logout();

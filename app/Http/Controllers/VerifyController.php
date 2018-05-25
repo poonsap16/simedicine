@@ -52,4 +52,10 @@ class VerifyController extends Controller
         $response = $this->wajaApi->sendLineVerify($data);
         return $response;
     }
+    public function checkEmailLineVerify(Request $request){
+        $user = Auth::user();
+        $data = [ 'id' => $user->id,
+                  'type' => $request->type];
+        return $data + ['reply_code' =>0];
+    }
 }

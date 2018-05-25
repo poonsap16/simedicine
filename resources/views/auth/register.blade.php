@@ -1,13 +1,13 @@
 <html lang="en-US">
 <head>
 <title>Register</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+<link rel="stylesheet" href="{{ url('/css/bootstrap-3.3.7/dist/css/bootstrap.css')}}">
+<link rel="stylesheet" href="/css/new_css/font-kanit.css">
 <link rel="stylesheet" href="{{ url('/css/font-awesome/css/font-awesome.min.css')}}">
-<link rel="stylesheet" href="/css/new_css/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{{ url('/css/new_css/w3.css')}}">
+<link rel="stylesheet" href="{{ url('/css/animate.css-master/animate.css')}}">
+<script src="{{ url('/js/jquery.js')}}"></script>
+<script src="{{ url('/css/bootstrap-3.3.7/dist/js/bootstrap.js')}}"></script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -308,7 +308,7 @@ hr {
                     'full_name': $('#full_name').val() 
                 },
                 success: function(data) {
-                    // console.log(data);
+                    console.log(data);
                     if (data.reply_code != 0) {
                         $('#full_name_error').html(data.reply_text);
                         full_name.closest('.form-group').removeClass('has-success').addClass('has-error has-feedback');

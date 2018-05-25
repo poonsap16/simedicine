@@ -101,4 +101,13 @@ class WajaUserProvider
 
         return false;
     }
+
+    public function checkEmailLineVerify(Array $data){
+        $response = $this->api->post('/check-email-line-verify', ['form_params' => $data]);
+        if ( $response->getStatusCode() == 200 ) {
+            return json_decode($response->getBody(), true);
+        }
+
+        return false;
+    }
 }

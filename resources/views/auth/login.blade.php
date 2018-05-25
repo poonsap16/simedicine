@@ -2,12 +2,10 @@
 <head>
 <title>Login</title>
 <link rel="stylesheet" href="{{ url('/css/bootstrap-3.3.7/dist/css/bootstrap.css')}}">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-
-<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+<link rel="stylesheet" href="/css/new_css/font-kanit.css">
 <link rel="stylesheet" href="{{ url('/css/font-awesome/css/font-awesome.min.css')}}">
 <link rel="stylesheet" href="{{ url('/css/new_css/w3.css')}}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+<link rel="stylesheet" href="{{ url('/css/animate.css-master/animate.css')}}">
 <link rel="stylesheet" href="{{ url('/css/new_css/toastr.css')}}"/>
 <script src="{{ url('/js/jquery.js')}}"></script>
 <script src="{{ url('/css/bootstrap-3.3.7/dist/js/bootstrap.js')}}"></script>

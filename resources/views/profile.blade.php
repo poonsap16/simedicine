@@ -4,20 +4,14 @@
 <title>Profile</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="{{ url('/css/font-awesome/css/font-awesome.min.css')}}">
-<!-- <link rel="stylesheet" href="/css/new_css/quiz.css"> -->
 <link rel="stylesheet" href="/css/new_css/w3.css">
 <link rel="stylesheet" href="/css/new_css/hover-min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
-<!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{{ url('/css/animate.css-master/animate.css')}}">
+<link rel="stylesheet" href="{{ url('/css/bootstrap-3.3.7/dist/css/bootstrap.css')}}">
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+<script src="{{ url('/js/jquery.js')}}"></script>
+<script src="{{ url('/css/bootstrap-3.3.7/dist/js/bootstrap.js')}}"></script>
 <style>
     #verify_code { height: 60px;font-size: 30px;}
     body {
@@ -140,6 +134,9 @@
         font-size: 30px;
         line-height: 55px;
     }
+  button {
+     display:none;
+  }
 </style>
 </head>
 <body>
@@ -153,6 +150,9 @@
             </div>
         </font>
     </div>
+    @if ($response['reply_code'] == 0)
+        {{ $response['reply_text']}}
+    @else
     <div class="form-horizontal">
         <div class="page col-xs-10 col-sm-8 col-md-5 col-centered" id = "wrap">
             <div class = "row">
@@ -269,7 +269,7 @@
         </div>
       </div>
 </div>
-
+@endif
 <script>
     $( document ).ready(function() {
         document.getElementById("change_email_button").disabled = true;

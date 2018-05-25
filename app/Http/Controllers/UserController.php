@@ -63,8 +63,9 @@ class UserController extends Controller
     }
     public function profile(){
         $user =  Auth::user();
-        // $role_id = $this->checkRoleId($user['role_id']);
-       return view('profile');
+        $data = [ 'id' => $user->id];
+        $response = $this->wajaApi->checkEmailLineVerify($data);    
+        return view('profile')->with('response',$response);
     }
     public function changeEmail(Request $request){
         return $request->all();
