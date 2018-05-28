@@ -274,23 +274,23 @@
 
 <script>
     $( document ).ready(function() {
-        setInterval(function(){ 
-            $.ajax({
-                    type: 'POST',
-                    data: {
-                    '_token' : '{{ csrf_token()}}',
-                    'type' : 'check_email_line_verify'
-                },
-                success: function(data) {
-                        if (data.reply_code == 0){
-                            location.reload();
-                        }
-                },
-                error: function(){ },
-            url: '/check-email-line-verify',
-            cache:false
-        });   
-    }, 3000);
+    //     setInterval(function(){ 
+    //         $.ajax({
+    //                 type: 'POST',
+    //                 data: {
+    //                 '_token' : '{{ csrf_token()}}',
+    //                 'type' : 'check_email_line_verify'
+    //             },
+    //             success: function(data) {
+    //                     if (data.reply_code == 0){
+    //                         location.reload();
+    //                     }
+    //             },
+    //             error: function(){ },
+    //         url: '/check-email-line-verify',
+    //         cache:false
+    //     });   
+    // }, 3000);
     
         
         $("#verify_code").keydown(function (e) {
