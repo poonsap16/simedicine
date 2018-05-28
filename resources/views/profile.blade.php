@@ -151,7 +151,9 @@
         </font>
     </div>
     @if ($response['reply_code'] == 0)
-        {{ $response['reply_text']}}
+    <div id = "both_verified">
+        <br/><center><h2> {{ $response['reply_text']}}</h2></center>
+    </div>
     @else
     <div class="form-horizontal">
         <div class="page col-xs-10 col-sm-8 col-md-5 col-centered" id = "wrap">
@@ -269,10 +271,28 @@
         </div>
       </div>
 </div>
-@endif
+
 <script>
     $( document ).ready(function() {
-        document.getElementById("change_email_button").disabled = true;
+        setInterval(function(){ 
+            $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'type' : 'check_email_line_verify'
+                },
+                success: function(data) {
+                        if (data.reply_code == 0){
+                            location.reload();
+                        }
+                },
+                error: function(){ },
+            url: '/check-email-line-verify',
+            cache:false
+        });   
+    }, 3000);
+    
+        
         $("#verify_code").keydown(function (e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                 (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
@@ -363,17 +383,7 @@ $(function(){
     var loading = $('#loadbar').hide();
     var email_verify = $('#email_verify').hide();
     var line_verify = $('#line_verify').hide();
-    // $(document)
-    // .ajaxStart(function () {
-    //     loading.show();
-    //     email_verify.show();
-    //     line_verify.show();
-    // }).ajaxStop(function () {
-    // 	loading.hide();
-    //   email_verify.hide();
-    //   line_verify.hide();
-    // });
-    
+   
     $("#email_button").on('click',function () {
     	$('#select_channel').hide();
         $('#loadbar').show();
@@ -405,6 +415,7 @@ $(function(){
     	}, 500);
     });
     $("#change_email_button").on('click',function () {
+        document.getElementById("change_email_button").disabled = true;
     	$('#change_email').hide();
         $('#loadbar').show();
     	setTimeout(function(){   
@@ -468,8 +479,7 @@ $(function(){
                 error: function(){ },
             url: '/send-line-verify',
             cache:false
-        });
-         
+        });   
     	}, 500);
     });
 });	
@@ -501,7 +511,7 @@ $('#verify_code').on('input', function(e) {
                         verify_code.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
                     }
                 },
-                error: function(){ },
+                error: function(){ console.log('error')},
             url: '/email-verify-code',
             cache:false
         });
@@ -607,5 +617,6 @@ $('#verify_code').on('input', function(e) {
      	}, 500);   
     }
 </script>
+@endif
 </body>
 </html>

@@ -63,12 +63,13 @@ class UserController extends Controller
     }
     public function profile(){
         $user =  Auth::user();
-        $data = [ 'id' => $user->id];
+        $data = ['id' => $user->id,
+                 'username' => $user->name];
         $response = $this->wajaApi->checkEmailLineVerify($data);    
         return view('profile')->with('response',$response);
+
     }
     public function changeEmail(Request $request){
-        return $request->all();
         $user = Auth::user();
         $data = $request->all() + ['user_id'=> $user->id];
         $response = $this->wajaApi->changeEmail($data);
