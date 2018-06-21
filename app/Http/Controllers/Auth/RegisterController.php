@@ -62,7 +62,7 @@ class RegisterController extends Controller
             return redirect()->back()->withInput()->with('status', 'Service error please try again later.');
         }
         $text = "Registration is complete, Please login to confirm your registration";
-            
+        
             // switch ($response['reply_code']) {
             //     case 1:
             //         $text = "<b><i>PASSWORD</i> AND <i>PASSWORD AGAIN</i> NOT MATCH</b>";

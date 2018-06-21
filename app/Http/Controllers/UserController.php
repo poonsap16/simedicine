@@ -62,17 +62,22 @@ class UserController extends Controller
         }
     }
     public function profile(){
-        $user =  Auth::user();
-        $data = ['id' => $user->id,
+       if ( @fopen(env('waja_host'), "r") )  { 
+            $user =  Auth::user();
+            $data = ['id' => $user->id,
                  'username' => $user->name];
-        $response = $this->wajaApi->checkEmailLineVerify($data);    
-        return view('profile')->with('response',$response);
-
+            $response = $this->wajaApi->checkEmailLineVerify($data);   
+            return view('profile')->with('response',$response);
+       }else{
+           return "Can't Connect to the Internet";
+       }
     }
     public function changeEmail(Request $request){
         $user = Auth::user();
-        $data = $request->all() + ['user_id'=> $user->id];
-        $response = $this->wajaApi->changeEmail($data);
+        // $user->email = $request->email;
+        // $user->save();
+        // $data = $request->all() + ['user_id'=> $user->id];
+        $response = $this->wajaApi->changeEmail(['user_id' => $user->id, 'email'=> $request->email ,'change_type' => $request->change_type]);
         return $response;
     }
 }

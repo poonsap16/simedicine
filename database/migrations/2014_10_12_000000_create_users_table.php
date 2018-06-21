@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->primary('id');
             $table->string('name'); // encrypted;
             $table->string('ref_id'); // SAP/STUDENT/USERNAME encrypted
-            $table->string('email'); // encrypted
+            // $table->string('email'); // encrypted
             $table->string('full_name', 512); // encrypted
             $table->boolean('gender');
             $table->rememberToken();

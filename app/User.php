@@ -58,24 +58,6 @@ class User extends Authenticatable
     {
         return Crypt::decrypt($this->attributes['ref_id']);
     }
-              /**
-     * Set field 'email'.
-     *
-     * @param string $value
-     */
-    public function setEmailAttribute($value)
-    {
-        $this->attributes['email'] = Crypt::encrypt($value);
-    }
-    /**
-     * Get field 'email'.
-     *
-     * @return string
-     */
-    public function getEmailAttribute()
-    {
-        return Crypt::decrypt($this->attributes['email']);
-    }
                /**
      * Set field 'full_name'.
      *

@@ -28,8 +28,6 @@ class VerifyController extends Controller
     public function sendEmailVerify(Request $request){
         $user = Auth::user();
         $data = ['id' => $user->id,
-                 'email' => $user->email,
-                 'username' => $user->name,
                  'type' => $request->type ];
         $response = $this->wajaApi->sendEmailVerify($data);
         return $response;
@@ -46,8 +44,8 @@ class VerifyController extends Controller
     public function sendLineVerify(Request $request){
         $user = Auth::user();
         $data = ['id' => $user->id,
-                 'email' => $user->email,
-                 'username' => $user->name,
+                //  'email' => $user->email,
+                //  'username' => $user->name,
                  'type' => $request->type ];
         $response = $this->wajaApi->sendLineVerify($data);
         return $response;

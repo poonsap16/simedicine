@@ -48,7 +48,6 @@ class LoginController extends Controller
                 'password'=> $request->password
             ]
         ]);
-        
         $user = json_decode($response->getBody(), true);
         // // ***
         // Log::info('waja response => ' . json_encode($user));
@@ -84,7 +83,7 @@ class LoginController extends Controller
             $new_user->id = $user['id'];
             $new_user->name = $user['name'];
             $new_user->ref_id = $user['ref_id'];
-            $new_user->email = $user['email'];
+            // $new_user->email = $user['email'];
             $new_user->full_name = $user['full_name'];
             $new_user->gender = $user['gender'];
             $new_user->save();

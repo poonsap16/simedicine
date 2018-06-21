@@ -104,6 +104,7 @@ class WajaUserProvider
 
     public function checkEmailLineVerify(Array $data){
         $response = $this->api->post('/check-email-line-verify', ['form_params' => $data]);
+        return json_decode($response->getBody(), true);
         if ( $response->getStatusCode() == 200 ) {
             Log::info(json_decode($response->getBody(), true));
             return json_decode($response->getBody(), true);
