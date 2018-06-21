@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{ url('/css/font-awesome/css/font-awesome.min.css')}}">
 <link rel="stylesheet" href="{{ url('/css/new_css/w3.css')}}">
 <link rel="stylesheet" href="{{ url('/css/animate.css-master/animate.css')}}">
+<link rel="stylesheet" href="{{ url('/css/new_css/toastr.css')}}"/>
 <script src="{{ url('/js/jquery.js')}}"></script>
 <script src="{{ url('/css/bootstrap-3.3.7/dist/js/bootstrap.js')}}"></script>
 
@@ -136,7 +137,7 @@ hr {
             <div class="w3-container ">
                 <br/><h2>Register</h2><hr>
             </div>
-            <form class="w3-container" action="/register" method = "POST" id = "loginForm">  
+            <form class="w3-container" action="/register" method = "POST" id = "register_form" name = "register_form" onsubmit="return validateForm()">  
                 <div class="row">
                     <div class="page col-xs-12 col-sm-10 col-md-10 col-sm-offset-1">
                         <div class="alert alert-info alert-white rounded" id = "alert">
@@ -209,6 +210,7 @@ hr {
     <center><a href="{{url('/login')}}"><font color="#0073e6">Sign in</font></a></center>
     </div>
 </div>
+<script type="text/javascript" src="/js/toastr.min.js"></script>
     <script type="text/javascript">
     $( document ).ready(function() {
         document.getElementById("submit").disabled = true;
@@ -235,7 +237,7 @@ hr {
          
         });
     });
-        $('#ref_id').on('input', function(e) {
+        $('#ref_id').on('input', function (e) {
             $('#user_data').slideUp();
             disableButton();
             var ref_id = $('#ref_id')
@@ -421,6 +423,39 @@ hr {
             });
         }
     }
+    function validatesapid(ref_id){ // validate email user
+        var ref_id = $('#ref_id')
+            if(ref_id.val().length != 8) {
+                e.preventDefault();
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'ref_id': $('#ref_id').val() 
+                },
+                success: function(data) {
+                    // console.log(data);
+                    if (data.reply_code != 0) {
+                        $('#sap_error').html(data.reply_text);
+                        ref_id.closest('.form-group').removeClass('has-success').addClass('has-error has-feedback');
+                        ref_id.closest('.form-group').find('i.fa').remove();
+                        ref_id.closest('.form-group').append('<i class="fa fa-close  fa-lg form-control-feedback"></i>');
+                        disableButton();
+                    }else{
+                        $('#sap_error').html("");
+                        ref_id.closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                        ref_id.closest('.form-group').find('i.fa').remove();
+                        ref_id.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
+                        disableButton();
+                    }
+        },
+        error: function(){ },
+        url: '/validate',
+        cache:false
+        });
+    }
+    }
     function disableButton(){
        document.getElementById("submit").disabled = true;
         var ref_id = document.getElementById('ref_id').value;        
@@ -435,13 +470,24 @@ hr {
         var name_error = document.getElementById('name_error').innerHTML;
         if( ref_id != '' && full_name  != '' && name_eng  != '' && email  != '' && name  != ''&& name  != ''
            && sap_error =='' && full_name_error == '' && name_eng_error == '' && email_error == '' && name_error == ''){
-                document.getElementById("submit").disabled = false;
+          setInterval(function(){ document.getElementById("submit").disabled = false;  }, 100);
+                
         }else {
             document.getElementById("submit").disabled = true;
                     }
    }
-
+   
    $('#alert').addClass('animated bounce');
+   @if( session('alert') )
+        @if( session('alert') == 100)
+            validatesapid($('#ref_id').val());
+        @elseif ( session('alert') == 101)
+            validateEmail($('#email').val());
+        @elseif ( session('alert') == 102)
+            validatename($('#name').val());
+        @endif
+    $('#user_data').show();
+   @endif 
 </script>
     </body>
     </html>

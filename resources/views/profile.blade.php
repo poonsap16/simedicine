@@ -167,11 +167,27 @@
     <div class="form-horizontal">
         <div class="page col-xs-12 col-sm-12 col-md-7 col-lg-6  col-centered" id = "wrap">
             <div id = "select_channel">
-                <font color="#404040"><h2><b>Notification</b></h2><hr>
-                        <label class="radio-inline"><b>Notify by :</b></label>
+                <font color="#404040"><h2><b>Notification</b></h2>
+                <div class = "row">
+                <hr>
+                </div>
+                <div class = "row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="w3-container"> 
+                        <center>
+                            <button id = "email_button" class="w3-btn w3-blue w3-xlarge " style="width:40%"><span class="fa fa-envelope"></span>  Email </button>
+                            <button id = "line_button" class="w3-btn w3-green w3-xlarge" style="width:40%"><span class="fa fa-comments"></span>  Line</button>
+                        </center>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class = "row">
+                <hr>
+                </div>
+    <!-- <label class="radio-inline"><b>Notify by :</b></label>
                         <label class="radio-inline"><input type="radio" id = "email_button" name="optradio">Email</label>
-                        <label class="radio-inline"><input type="radio" id = "line_button" name="optradio">Line</label>
-                <hr/>
+                        <label class="radio-inline"><input type="radio" id = "line_button" name="optradio">Line</label> -->
                 </font>
             </div>
         </div>
@@ -181,6 +197,7 @@
             </div>
         </div>
         <div id = "email_verify" style="display: none;" class = "page col-xs-12 col-sm-12 col-md-12  col-centered">
+        
             <div class="page col-xs-12 col-sm-12 col-md-7 col-lg-6 col-email">
                     <div class="w3-card-4 w3-white">
                         <div class="w3-container ">
@@ -288,32 +305,32 @@
     </div>   
 @endif
 <script>
-    // $( document ).ready(function() {
-    //     var refreshId =  setInterval(function(){ 
-    //         $.ajax({
-    //                 type: 'POST',
-    //                 data: {
-    //                 '_token' : '{{ csrf_token()}}',
-    //                 'type' : 'check_email_line_verify'
-    //             },
-    //             success: function(data) {
-    //                 console.log(data);
-    //                     if (data.reply_code == 0){
-    //                         $('#select_channel').hide();
-    //                         $('#email_verify').hide();
-    //                         $('#line_verify').hide();
-    //                         $('#change_email').hide();
-    //                         $('#line_verify').hide();
-    //                         $('#both_verified').show();
-    //                         clearInterval(refreshId);
-    //                     }
-    //             },
-    //             error: function(){ },
-    //         url: '/check-email-line-verify',
-    //         cache:false
-    //     });   
-    // }, 3000);
-    // });
+    $( document ).ready(function() {
+        var refreshId =  setInterval(function(){ 
+            $.ajax({
+                    type: 'POST',
+                    data: {
+                    '_token' : '{{ csrf_token()}}',
+                    'type' : 'check_email_line_verify'
+                },
+                success: function(data) {
+                    console.log(data);
+                        if (data.reply_code == 0){
+                            $('#select_channel').hide();
+                            $('#email_verify').hide();
+                            $('#line_verify').hide();
+                            $('#change_email').hide();
+                            $('#line_verify').hide();
+                            $('#both_verified').show();
+                            clearInterval(refreshId);
+                        }
+                },
+                error: function(){ },
+            url: '/check-email-line-verify',
+            cache:false
+        });   
+    }, 3000);
+    });
 $("#email_button").on('click',function () {
         $('#email_verify').hide();
         $('#change_email').hide();

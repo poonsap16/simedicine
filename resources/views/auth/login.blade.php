@@ -141,7 +141,6 @@ hr {
 </head>
 <body>
 <div class="wrapper">
-
     <div class="page col-xs-12 col-sm-6 col-md-5  col-centered">
         <div class="w3-card-4 w3-white">
             <div class="w3-container ">

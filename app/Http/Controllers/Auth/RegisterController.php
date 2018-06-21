@@ -50,6 +50,11 @@ class RegisterController extends Controller
      */
     public function register(\Illuminate\Http\Request $request)
     {
+        $check_data = $this->wajaApi->checkField($request->all()+['type' => 'check_all']);
+            if ($check_data['reply_code'] != 0){
+                $text = $check_data['reply_code'];
+                return back()->withInput()->with('alert',$text);
+            }
         // return redirect()->back()->withInput();
         $response = $this->wajaApi->register($request->all());
         // $response = [
