@@ -46,3 +46,4 @@ Route::get('/logout', function () {
     Auth::logout();
     return view('auth.login');
 });
+Route::post('/get-massege','CallbackController@getMessage');

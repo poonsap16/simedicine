@@ -63,6 +63,7 @@ class UserController extends Controller
     }
     public function profile(){
        if ( @fopen(env('waja_host'), "r") )  { 
+           
             $user =  Auth::user();
             $data = ['id' => $user->id,
                  'username' => $user->name];
