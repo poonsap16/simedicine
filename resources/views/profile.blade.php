@@ -215,15 +215,22 @@
                             <div class="row">
                                 <div class="page col-xs-8 col-sm-8 col-md-8 col-email">
                                     <div class="form-group">
-                                        <!-- <label for="inputlg">Verify Code :</label> -->
-                                        <input class="form-control input-lg" id="verify_code" type="text" style="text-align:center;" placeholder="Verify Code">
-                                        <span class="help-block" id = "verify_error"></span>
+                                        <div id = "input_verify_code">  
+                                            <input class="form-control input-lg" id="verify_code" type="text" style="text-align:center;" placeholder="Verify Code">
+                                            <span class="help-block" id = "verify_error"></span>
+                                        </div>
+                                        <div id = "icon_verified" style="display: none;">
+                                                <center><span class="fa fa-check-circle-o" style="font-size:150px; color:green;"></span><br>
+                                                <fond style="font-size:20px; color:green;">Email was verified.</font>
+                                                </center>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <br/>
                             <div class="row" >
-                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12" id = "resend">
                                     <center><a href="#" onclick="javascript:resend_for_email()" id = "resend"><font color="#0073e6"><span class="fa fa-share"></span>  Resend </font></a></center>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12" >  
@@ -345,11 +352,19 @@ $("#email_button").on('click',function () {
                     'type' : 'send_email'
                 },
                 success: function(data) {
-                        if (data.reply_code == 0){
-                            console.log(data);
+                    console.log(data);
+                        if (data.reply_code == 0){  
                             $('#loadbar').hide();   
                             $('#email_verify').show();
                             $('#footer').show();
+                        }
+                        else if (data.reply_code == 9){
+                            $('#loadbar').hide();
+                            $('#alert').hide();
+                            $('#resend').hide();
+                            $('#input_verify_code').hide();
+                            $('#email_verify').show();  
+                            $('#icon_verified').fadeIn();
                         }else {
                             console.log(data);
                             $('#loadbar').hide();
@@ -384,11 +399,17 @@ $("#email_button").on('click',function () {
                         verify_code.closest('.form-group').find('i.fa').remove();
                         verify_code.closest('.form-group').append('<i class="fa fa-close  fa-lg form-control-feedback" style = "line-height: 55px;"></i>');
                     }else{
-                        console.log(data);
-                        $('#verify_error').html("");
-                        verify_code.closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                        // console.log(data);
+                        // $('#verify_error').html("");
+                        // verify_code.closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                        // verify_code.closest('.form-group').find('i.fa').remove();
+                        // verify_code.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback" style = "line-height: 55px;"></i>');
+                        verify_code.closest('.form-group').removeClass('has-error has-feedback');
                         verify_code.closest('.form-group').find('i.fa').remove();
-                        verify_code.closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback" style = "line-height: 55px;"></i>');
+                        $('#alert').hide();
+                        $('#resend').hide();
+                        $('#input_verify_code').hide();
+                        $('#icon_verified').fadeIn();
                     }
                 },
                 error: function(){ console.log('error')},
@@ -484,6 +505,7 @@ $("#email_button").on('click',function () {
    $("#line_button").on('click',function () {
         $('#email_verify').hide();
         $('#change_email').hide();
+        $('#line_verify').hide();
         $('#loadbar').show();
     	setTimeout(function(){   
             $.ajax({
@@ -573,7 +595,11 @@ $("#email_button").on('click',function () {
                         if (data.reply_code == 0){
                             if (data.change_type == 'email'){
                                 console.log(data);
-                                $('#loadbar').hide();   
+                                $('#icon_verified').hide();
+                                $('#loadbar').hide();  
+                                $('#alert').show();
+                                $('#resend').show();
+                                $('#input_verify_code').show(); 
                                 $('#email_verify').show();
                             }else if (data.change_type =='line'){
                                 $('#loadbar').hide();   

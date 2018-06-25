@@ -133,6 +133,10 @@ hr {
 <body>
 <div class="wrapper">
     <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
+    <p align = "right"><a href="{{url('/login')}}"><font color="#0073e6"><span class ="fa fa-sign-in"></span> Log in</font></a></p>
+    </div>
+    
+    <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
         <div class="w3-card-4 w3-white">
             <div class="w3-container ">
                 <br/><h2>Register</h2><hr>
@@ -205,9 +209,6 @@ hr {
             <br/>
             </form>
         </div>
-    </div>
-    <div class="page col-xs-12 col-sm-12 col-md-12">
-    <center><a href="{{url('/login')}}"><font color="#0073e6">Sign in</font></a></center>
     </div>
 </div>
 <script type="text/javascript" src="/js/toastr.min.js"></script>

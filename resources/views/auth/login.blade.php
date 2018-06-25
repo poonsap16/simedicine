@@ -144,7 +144,7 @@ hr {
     <div class="page col-xs-12 col-sm-6 col-md-5  col-centered">
         <div class="w3-card-4 w3-white">
             <div class="w3-container ">
-                <br/><h2>Sign in</h2><hr>
+                <br/><h2>Log in</h2><hr>
             </div>
             <form class="w3-container" action="/login" method = "POST" id = "loginForm">
                 <div class="row">
