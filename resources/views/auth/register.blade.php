@@ -2,7 +2,7 @@
 <head>
 <title>Register</title>
 <link rel="stylesheet" href="{{ url('/css/bootstrap-3.3.7/dist/css/bootstrap.css')}}">
-<link rel="stylesheet" href="/css/new_css/font-kanit.css">
+<link rel="stylesheet" href="{{ url('/css/new_css/font-kanit.css')}}">
 <link rel="stylesheet" href="{{ url('/css/font-awesome/css/font-awesome.min.css')}}">
 <link rel="stylesheet" href="{{ url('/css/new_css/w3.css')}}">
 <link rel="stylesheet" href="{{ url('/css/animate.css-master/animate.css')}}">
@@ -133,7 +133,7 @@ hr {
 <body>
 <div class="wrapper">
     <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
-    <p align = "right"><a href="{{url('/login')}}"><font color="#0073e6"><span class ="fa fa-sign-in"></span> Log in</font></a></p>
+    <p align = "right"><a href="{{url('/login')}}"><font color="#0073e6"><span class ="fa fa-sign-in"></span> Login</font></a></p>
     </div>
     
     <div class="page col-xs-12 col-sm-8 col-md-8 col-sm-offset-2">
@@ -148,8 +148,7 @@ hr {
                             <div class="icon">
                                 <i class="fa fa-info-circle"></i>
                             </div>
-                            You need Faculty's account to register SAPID. <br/>
-                            If you don't have one, you will not be able to login the application.
+                            Register for Siriraj Internal Medicine Information Service Unit.
                         </div>  
                     </div>
                 </div>

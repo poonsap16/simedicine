@@ -144,7 +144,7 @@ hr {
     <div class="page col-xs-12 col-sm-6 col-md-5  col-centered">
         <div class="w3-card-4 w3-white">
             <div class="w3-container ">
-                <br/><h2>Log in</h2><hr>
+                <br/><h2>Login</h2><hr>
             </div>
             <form class="w3-container" action="/login" method = "POST" id = "loginForm">
                 <div class="row">
@@ -153,7 +153,7 @@ hr {
                             <div class="icon">
                                 <i class="fa fa-info-circle"></i>
                             </div>
-                            You need Faculty's account to login by SAPID.
+                            You need Faculty's account to login by ID.
                         </div>  
                     </div>
                 </div>
@@ -163,7 +163,7 @@ hr {
                     <div class="page col-xs-12 col-sm-10 col-md-10 col-sm-offset-1">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="ref_id" type="text" class="form-control" name="ref_id"  value = "{{ old('ref_id')}}" placeholder="SAP ID">     
+                            <input id="ref_id" type="text" class="form-control" name="ref_id"  value = "{{ old('ref_id')}}" placeholder="ID">     
                        </div>
                     </div>
                 </div>
@@ -173,7 +173,9 @@ hr {
                        <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                            
                         </div>
+                        <span class="help-block">&emsp;&emsp;&emsp;Same password as SiIT</span>
                     </div>
                 </div>
                 <br/>

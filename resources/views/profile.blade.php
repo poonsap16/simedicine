@@ -208,7 +208,7 @@
                                 <div class="page col-xs-8 col-sm-8 col-md-8 col-email">
                                     <div class="alert alert-info alert-white rounded" id = "alert">
                                         <div class="icon"><i class="fa fa-info-circle"></i></div>
-                                        The verify code was sent, Please check you email.
+                                        Your verification code was sent, please check your email.
                                     </div>  
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
                                 <div class="page col-xs-10 col-sm-10 col-md-10 col-md-10 col-email">
                                     <div class="alert alert-info alert-white rounded" id = "change_email_alert">
                                         <div class="icon"><i class="fa fa-info-circle"></i></div>
-                                            When you change email, The verify code will be sent to your new email immediately.
+                                                When you change your email, the verification code will be sent to your new email immediately.
                                     </div>  
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                                 <div class="page col-xs-8 col-sm-8 col-md-8 col-email">
                                     <div class="alert alert-info alert-white rounded" id = "line_alert">
                                         <div class="icon"><i class="fa fa-info-circle"></i></div>
-                                            The QR code and The verify code was sent, Please check you email.
+                                            The QR code and the verification code was sent, please check your email.
                                     </div>  
                                 </div>
                             </div>
