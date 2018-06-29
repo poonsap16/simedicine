@@ -33,13 +33,13 @@ Route::get('/login',['as'=>'login','uses'=>'Auth\LoginController@showLoginForm']
 Route::post('/login', 'Auth\LoginController@authenticate');
 
 Route::get('/profile','UserController@profile');
-Route::post('/send-email-verify','Verifycontroller@sendEmailVerify');
-Route::post('/email-verify-code','Verifycontroller@emailVerifyCode');
+Route::post('/send-email-verify','VerifyController@sendEmailVerify');
+Route::post('/email-verify-code','VerifyController@emailVerifyCode');
 
-Route::post('/send-line-verify','Verifycontroller@sendLineVerify');
+Route::post('/send-line-verify','VerifyController@sendLineVerify');
 
 
-Route::post('/check-email-line-verify','Verifycontroller@checkEmailLineVerify');
+Route::post('/check-email-line-verify','VerifyController@checkEmailLineVerify');
 
 Route::post('/change-email','UserController@changeEmail');
 Route::get('/logout', function () {
