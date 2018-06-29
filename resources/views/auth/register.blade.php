@@ -148,7 +148,7 @@ hr {
                             <div class="icon">
                                 <i class="fa fa-info-circle"></i>
                             </div>
-                            You need Faculty's account to register and login by ID. <br/>
+                            You need Faculty's account to register SAPID. <br/>
                             If you don't have one, you will not be able to login the application.
                         </div>  
                     </div>
@@ -471,11 +471,10 @@ hr {
         var name_error = document.getElementById('name_error').innerHTML;
         if( ref_id != '' && full_name  != '' && name_eng  != '' && email  != '' && name  != ''&& name  != ''
            && sap_error =='' && full_name_error == '' && name_eng_error == '' && email_error == '' && name_error == ''){
-          setInterval(function(){ document.getElementById("submit").disabled = false;  }, 100);
-                
+           document.getElementById("submit").disabled = false;    
         }else {
             document.getElementById("submit").disabled = true;
-                    }
+        }
    }
    
    $('#alert').addClass('animated bounce');

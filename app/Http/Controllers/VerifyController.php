@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\VerifyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class VerifyController extends Controller

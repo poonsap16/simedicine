@@ -153,7 +153,7 @@ hr {
                             <div class="icon">
                                 <i class="fa fa-info-circle"></i>
                             </div>
-                            You need Faculty's account to register and login by ID.
+                            You need Faculty's account to login by SAPID.
                         </div>  
                     </div>
                 </div>
