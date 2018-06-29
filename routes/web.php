@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('register');
+    return view('welcome');
 });
 
 Route::get('/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm']);
