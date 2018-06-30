@@ -47,7 +47,5 @@ Route::get('/logout', function () {
     return view('auth.login');
 });
 Route::post('/message','CallbackController@getMessage');
-<<<<<<< HEAD
+
 Route::get('/show-message','CallbackController@showMessage');
-=======
->>>>>>> 8f5a1161aca6bd49728c8614fce90c7c41a5633a
