@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>IMISU</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -13,8 +13,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background-color: #06c;
+                color: #fcfcfc;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
@@ -50,44 +50,77 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #ffc;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+                background-color: #09c;
+                padding: 14px 25px;
+                display: inline-block;
             }
 
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .typewriter h1 {
+              overflow: hidden; /* Ensures the content is not revealed until the animation */
+              border-right: .15em solid orange; /* The typwriter cursor */
+              white-space: nowrap; /* Keeps the content on a single line */
+              margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+              letter-spacing: .15em; /* Adjust as needed */
+              animation: 
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+            }
+
+            /* The typing effect */
+            @keyframes typing {
+              from { width: 0 }
+              to { width: 100% }
+            }
+
+            /* The typewriter cursor effect */
+            @keyframes blink-caret {
+              from, to { border-color: transparent }
+              50% { border-color: orange; }
+            }
+
+            /* Sink */
+            .hvr-sink {
+              display: inline-block;
+              vertical-align: middle;
+              -webkit-transform: perspective(1px) translateZ(0);
+              transform: perspective(1px) translateZ(0);
+              box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+              -webkit-transition-duration: 0.3s;
+              transition-duration: 0.3s;
+              -webkit-transition-property: transform;
+              transition-property: transform;
+              -webkit-transition-timing-function: ease-out;
+              transition-timing-function: ease-out;
+            }
+            .hvr-sink:hover, .hvr-sink:focus, .hvr-sink:active {
+              -webkit-transform: translateY(8px);
+              transform: translateY(8px);
+            }
+
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="typewriter">
+                    <h1>SiMEDICINE.ORG</h1>
                 </div>
+                <hr>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a class="hvr-sink" href="{{ env('REGISTER_PAGE_URL') }}">Register</a>
+                    <a class="hvr-sink" href="{{ env('MEDSICON_APP_URL') }}">Medsicon</a>
                 </div>
             </div>
         </div>
