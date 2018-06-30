@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Callback;
 
+use Illuminate\Support\Facades\Auth;
+
 class CallbackController extends Controller
 {
     public function getMessage (Request $request){
@@ -21,6 +23,15 @@ class CallbackController extends Controller
         }else{
             return $response = ['reply_code' => 1 ,
                                 'reply_text' => 'Do not accept.'];
+        }
+    }
+    public function showMessage(){
+        $user =  Auth::user();
+        if ($user['ref_id'] != 10032608){
+            return "ไม่มีสิทธิ์";
+        }else{
+            $messages = Callback::all();
+            return $messages;
         }
     }
 }
